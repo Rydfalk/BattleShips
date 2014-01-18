@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import Database.DatabaseObject;
 
-public class Player extends DatabaseObject{
+public class Player{
 	
 	
 	
@@ -14,6 +14,7 @@ public class Player extends DatabaseObject{
 	/******************* CLASS VARIABLES *******************/
 	private String name;
 	private int wins, losses;
+	private DatabaseObject dbo;
 	
 	/**
 	 * Is the name of this class database table
@@ -36,21 +37,27 @@ public class Player extends DatabaseObject{
 	
 	/******************* CONSTRUCTORS *******************/	
 	public Player(String name){
-		super("Battleships");
 		
-		if(!tableExists(databaseTableName)){
+		dbo = new DatabaseObject();
+		
+		if(!dbo.tableExists(databaseTableName)){
+			System.out.println("HEJ");
+			dbo.createTable(databaseTableName, databaseColumns);
 			
-			createTable(databaseTableName, databaseColumns);
 		}
 		
 		if(!playerExists(name)){
-			
+
 			//If the user does not exist yet
 			createPlayer(name);
+			System.out.println("HELLO");
 			
 		}
-		
 		getPlayer(name);
+		dbo.closeConnection();
+		System.out.println("Wins: " + wins);
+		System.out.println("Losses: " + losses);
+		System.out.println("Name: " + name);
 		
 	}
 	
@@ -60,19 +67,26 @@ public class Player extends DatabaseObject{
 	
 	/******************* PRIVATE METHODS *******************/	
 	private void createPlayer(String name){
+		dbo = new DatabaseObject();
 		String sql = "INSERT INTO "
 				+ databaseTableName 
-				+ " (name, wins, losses) VALUES ("
-				+ name + ", 0, 0)";
-		write(sql);
+				+ " (name, wins, losses) VALUES ('"
+				+ name + "', 0, 0)";
+		
+		dbo.write(sql);
+		dbo.closeConnection();
 
 	}
 	
+	
+	
 	private void getPlayer(String name){
+		dbo = new DatabaseObject();
 		String sql = "SELECT name, wins, losses  FROM statistics WHERE name = '"
 				+ name + "'";
-		ResultSet rs = read(sql);
+		
 		try {
+			ResultSet rs = dbo.read(sql);
 			this.name = rs.getString("name");
 			this.wins = rs.getInt("wins");
 			this.losses = rs.getInt("losses");
@@ -80,20 +94,27 @@ public class Player extends DatabaseObject{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		dbo.closeConnection();
 	}
 	
 	
+	
+	
 	private boolean playerExists(String name){
-		if(tableExists("statistics")){
+		if(dbo.tableExists("statistics")){
+			
 			String sql = "SELECT count(*) FROM statistics WHERE name='"
-					+ name +"'";
-			ResultSet rs = read(sql);
+					+ name +"'";	
 			try{
+				ResultSet rs = dbo.read(sql);
+				dbo.closeConnection();
 				//Returns true if the count of matched tables are one or more
-				return rs.getInt("count(*)") > 0 ? true : false;
+				if(rs.getInt("count(*)") > 0){
+					return true;
+				}
+				dbo.closeConnection();
 			}catch(SQLException e){
-				handleError(e);
+				dbo.handleError(e);
 			}
 		}
 		return false;
@@ -107,22 +128,88 @@ public class Player extends DatabaseObject{
 	
 	/******************* PUBLIC METHODS *******************/
 	public void saveStats(){
+		dbo = new DatabaseObject();
 		String sql = 
 				"UPDATE "
 				+ databaseTableName 
-				+ "SET "
+				+ " SET "
 				+ "wins = " + wins + ", "
 				+ "losses = " + losses
-				+ "WHERE name = '"
+				+ " WHERE name = '"
 				+ name + "'";
-		write(sql);	
+		dbo.write(sql);
 		
+			
+		dbo.closeConnection();
 	}
+	
+	/**
+	 * Registrates a win
+	 */
+	public void registerWin(){
+		wins++;
+	}
+	
+	
+	/**
+	 * Registrates a loss
+	 */
+	public void registerLoss(){
+		losses++;
+	}
+
 	
 	
 	/******************* Getters and Setters *******************/
 	
-	
+
+
+
+
+
+	public String getName() {
+		return name;
+	}
+
+
+
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+
+
+
+	public int getWins() {
+		return wins;
+	}
+
+
+
+
+
+	public void setWins(int wins) {
+		this.wins = wins;
+	}
+
+
+
+
+
+	public int getLosses() {
+		return losses;
+	}
+
+
+
+
+
+	public void setLosses(int losses) {
+		this.losses = losses;
+	}
 	
 	
 }

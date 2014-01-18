@@ -94,12 +94,16 @@ public class DatabaseObject {
 	/******************* PROTECTED METHODS *******************/
 	
 
+	
+	
+	
+	/******************* PUBLIC METHODS *******************/
 	/**
 	 * Writes to the given sql statement to the database
 	 * If the table does not exist the table is created
 	 * @param sql
 	 */
-	protected void write(String sql){
+	public void write(String sql){
 		try{
 			stmt.executeUpdate(sql);
 		}catch (SQLException e){
@@ -114,7 +118,7 @@ public class DatabaseObject {
 	 * the given ResultSet
 	 * @return sql
 	 */
-	protected ResultSet read(String sql){
+	public ResultSet read(String sql){
 		try {
 			rs = stmt.executeQuery(sql);
 		} catch (SQLException e) {
@@ -129,7 +133,7 @@ public class DatabaseObject {
 	 * Checks if the table exists
 	 * @return boolean
 	 */
-	protected boolean tableExists(String tableName){
+	public boolean tableExists(String tableName){
 		
 		String sql = "SELECT count(*) FROM sqlite_master WHERE"
 				+ "	type='table' AND"
@@ -155,14 +159,16 @@ public class DatabaseObject {
 	 * [ example ],[varchar(255)]
 	 * 
 	 */
-	protected void createTable(String tableName, String[][] columns){
+	public void createTable(String tableName, String[][] columns){
 		if(!tableExists(tableName)){
 			String sql = "CREATE TABLE " + tableName + "(";
-			for(int i = 0; i < columns[0].length; i++){
-				sql +=  columns[0][i] + 
-						" " + columns[1][i]+ ", ";
+			for(int i = 0; i < columns.length; i++){
+				sql +=  columns[i][0] + 
+						" " + columns[i][1];
+				sql += i == columns.length -1 ? "" : ", ";
 			}
 			sql += ")";
+			System.out.println(sql);
 			write(sql);
 		}
 		else{
@@ -175,7 +181,7 @@ public class DatabaseObject {
 	/**
 	 * Closes the connection
 	 */
-	protected void closeConnection(){
+	public void closeConnection(){
 		try{
 			conn.close();
 		}catch(SQLException e){
@@ -191,14 +197,10 @@ public class DatabaseObject {
 	 * @param e: SQLException
 	 * @see SQLException
 	 */
-	protected void handleError(SQLException e){
+	public void handleError(SQLException e){
 		System.err.println(e.getClass().getName() + ": " + e.getMessage());
 		System.exit(0);
 	}
-	
-	
-	/******************* PUBLIC METHODS *******************/
-	
 	
 	
 	
