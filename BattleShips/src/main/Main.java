@@ -1,65 +1,43 @@
 package main;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.CardLayout;
 
-import javax.swing.JButton;
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.WindowConstants;
+import javax.swing.SwingUtilities;
 
 public class Main {
+	
+	private JPanel contentPane;
+	private FirstMenu firstMenuPanel;
+	private StatisticsPanel statisticsPanel;
+	private GamePanel gamePanel;
 
-	public static void main(String[] args) {
+	private void displayGUI() {
+		JFrame frame = new JFrame("BattleShips");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		JFrame mainFrame = new JFrame("Battleships");
-
-		mainFrame.setSize(800, 600);
-		mainFrame.setLocationRelativeTo(null);
-		mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		mainFrame.setVisible(true);
-
-		JPanel firstMenu = new JPanel();
-		mainFrame.getContentPane().add(firstMenu);
-		
-		firstMenu.setLayout(null);
-
-		JButton gameButton = new JButton("Play Battleships");
-		gameButton.setBounds(300, 250, 200, 30);
-		gameButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent event) {
-				/*
-				 * TODO:
-				 * 
-				 * Ask for players
-				 * 
-				 * Start game 
-				 */
-			}
-		});
-
-		JButton statisticsButton = new JButton("View Player Statistics");
-		statisticsButton.setBounds(300, 300, 200, 30);
-		statisticsButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent event) {
-				/*
-	             * TODO:
-	             * 
-	             * Show statistics panel
-	             *  
-	             */
-			}
-		});
-		
-		
-		firstMenu.add(gameButton);
-		
-		firstMenu.add(statisticsButton);
-		
-		
-		
+		JPanel contentPane = new JPanel();
+		contentPane.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new CardLayout());
+		firstMenuPanel = new FirstMenu(contentPane);
+		statisticsPanel = new StatisticsPanel(contentPane);
+		gamePanel = new GamePanel(contentPane);
+		contentPane.add(firstMenuPanel, "First Menu Card");
+		contentPane.add(statisticsPanel, "Statistics Card");
+		contentPane.add(gamePanel, "Game Card");
+		frame.setContentPane(contentPane);
+		frame.pack();
+		frame.setLocationByPlatform(true);
+		frame.setVisible(true);
 	}
 
+	public static void main(String... args) {
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				new Main().displayGUI();
+			}
+		});
+	}
 }
