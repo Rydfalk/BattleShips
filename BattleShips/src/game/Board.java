@@ -50,19 +50,61 @@ public class Board {
 	}
 
 	/**
+	 * checks all the nearby squares. returns iff all adjecent squares are empty
+	 * 
+	 * @param point
+	 * @return: boolean
+	 * 
+	 */
+	public boolean isValidToOccupy(int x, int y) {
+		Point point = new Point(x, y);
+		if (!isOccupied(point)) {
+			// Loops through all adjecent tiles
+			for (int i = -1; i < 2; i++) {
+				for (int j = -1; j < 2; j++) {
+					// if the square is not a valid square
+					// (the startpoint can be in a corner)
+					// then we do not need to test it
+					if (isValidSquare(new Point(point.x - i, point.y - j))) {
+						// Returns false if any of the adjecent tiles are
+						// occupied
+						if (isOccupied(point.x - i, point.y - j)) {
+							return false;
+						}
+					}
+				}
+			}
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * Checks if the given point is a valid square on the board. That is iff
+	 * (0,0) <= (x,y) < (boardWidht, boardWidth)
+	 * 
+	 * @param point
+	 * @return : boolean iff (0,0) <= (x,y) < (boardWidht, boardWidth)
+	 */
+	public boolean isValidSquare(Point point) {
+		return (point.x > -1 && point.y > -1 && point.x < boardWidth && point.y < boardWidth);
+	}
+
+	/**
 	 * Sets the given coordinates to occupied
 	 * 
-	 *@param point
+	 * @param point
 	 *            : Point object
 	 */
 	public void occupySquare(Point point) {
 		board[point.y][point.x] = Square.OCCUPIED;
 	}
-	
+
 	/**
 	 * Sets the given coordinates to occupied
 	 * 
-	 *@param point
+	 * @param point
 	 *            : Point object
 	 */
 	public void occupySquare(int x, int y) {
@@ -79,6 +121,18 @@ public class Board {
 	 */
 	public boolean isOccupied(Point point) {
 		return (board[point.y][point.x] == Square.OCCUPIED);
+	}
+
+	/**
+	 * Checks if the Square with the given x- and y- coordinates is occupied. If
+	 * so then return true else return false
+	 * 
+	 * @param point
+	 *            : Point object
+	 * @return
+	 */
+	public boolean isOccupied(int x, int y) {
+		return (board[y][x] == Square.OCCUPIED);
 	}
 
 	/**

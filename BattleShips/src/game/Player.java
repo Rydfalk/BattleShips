@@ -51,6 +51,14 @@ public class Player {
 
 	}
 
+	private void deletePlayer() {
+		dbo = new DatabaseObject();
+		String sql = "DELETE FROM " + databaseTableName + " WHERE name = '"
+				+ name + "'";
+		dbo.write(sql);
+		dbo.closeConnection();
+	}
+
 	private void getPlayer(String name) {
 		dbo = new DatabaseObject();
 		String sql = "SELECT name, wins, losses  FROM statistics WHERE name = '"
@@ -61,8 +69,7 @@ public class Player {
 			this.wins = rs.getInt("wins");
 			this.losses = rs.getInt("losses");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			dbo.handleError(e);
 		}
 		dbo.closeConnection();
 	}
@@ -136,8 +143,12 @@ public class Player {
 	}
 
 	/**
+	 * Uses the ships size, startPoint and direction to calculate where on the
+	 * board the ship is suposed to be placed and checks so that it is a valid
+	 * placement.
 	 * 
-	 * 
+	 * If it's a valid placement we continue with the placement and return true.
+	 * If it's not a valid placement we return false
 	 * 
 	 * @param ship
 	 *            : Ship object
@@ -157,8 +168,8 @@ public class Player {
 		switch (dir) {
 		case UP:
 			for (int i = 0; i < ship.getSize(); i++) {
-				
-				if (!board.isEmpty(startPoint.x, startPoint.y - i)) {
+
+				if (!board.isValidToOccupy(startPoint.x, startPoint.y - i)) {
 					return false;
 				}
 				tempBoard.occupySquare(startPoint.x, startPoint.y - i);
@@ -166,7 +177,7 @@ public class Player {
 			break;
 		case DOWN:
 			for (int i = 0; i < ship.getSize(); i++) {
-				if (!board.isEmpty(startPoint.x, startPoint.y + i)) {
+				if (!board.isValidToOccupy(startPoint.x, startPoint.y + i)) {
 
 					return false;
 				}
@@ -176,7 +187,8 @@ public class Player {
 			break;
 		case RIGHT:
 			for (int i = 0; i < ship.getSize(); i++) {
-				if (!board.isEmpty(startPoint.x + i, startPoint.y)) {
+
+				if (!board.isValidToOccupy(startPoint.x + i, startPoint.y)) {
 
 					return false;
 				}
@@ -186,7 +198,7 @@ public class Player {
 			break;
 		case LEFT:
 			for (int i = 0; i < ship.getSize(); i++) {
-				if (!board.isEmpty(startPoint.x - i, startPoint.y)) {
+				if (!board.isValidToOccupy(startPoint.x - i, startPoint.y)) {
 
 					return false;
 				}
