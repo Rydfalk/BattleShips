@@ -60,20 +60,19 @@ class PlayerPanel extends JPanel {
 				 * TODO: call "addNewHuman-method"
 				 */
 
-				if (true) {
-					game.addNewHumanPlayer(inputField.getText());
-					playerDisplay.append(inputField.getText() + "\n");
-					numberOfPlayers++;
+				game.addNewHumanPlayer(inputField.getText().trim());
+				playerDisplay.append(inputField.getText() + "\n");
+				numberOfPlayers++;
 
-					if (numberOfPlayers == 2) {
+				if (numberOfPlayers == 2) {
 
-						newHumanButton.setEnabled(false);
-						newAIButton.setEnabled(false);
-						statusMessagesText.setText("Start Game!");
+					newHumanButton.setEnabled(false);
+					newAIButton.setEnabled(false);
+					statusMessagesText.setText("Start Game!");
 
-					}
 				}
 			}
+
 		});
 
 		add(newHumanButton);
@@ -85,7 +84,8 @@ class PlayerPanel extends JPanel {
 				/*
 				 * TODO: call "addNewAI-method"
 				 */
-				game.addNewAIPlayer(inputField.getText());
+			
+				game.addNewAIPlayer(inputField.getText().trim());
 				playerDisplay.append(inputField.getText() + "\n");
 				numberOfPlayers++;
 
@@ -114,6 +114,13 @@ class PlayerPanel extends JPanel {
 		startGameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
+				if(numberOfPlayers == 2){
+					
+					CardLayout cardLayout = (CardLayout) contentPane.getLayout();
+					cardLayout.show(contentPane, "Game Card");
+					
+				}
+				
 			}
 		});
 		add(startGameButton);

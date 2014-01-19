@@ -40,5 +40,11 @@ public class Game {
 		// TODO Auto-generated method stub
 		
 	}
+
+
+	public String getActivePlayer() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
 

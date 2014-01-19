@@ -17,7 +17,6 @@ class FirstMenu extends JPanel {
 	private JPanel contentPane;
 /*************************** Constructors ******************************/
 	
-/*************************** Public Methods ******************************/
 	public FirstMenu(JPanel panel) {
 		contentPane = panel;
 		setOpaque(true);

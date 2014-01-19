@@ -36,6 +36,7 @@ public class Main {
 		frame.pack();
 		frame.setLocationByPlatform(true);
 		frame.setVisible(true);
+		frame.setResizable(false);
 	}
 
 	public static void main(String... args) {
