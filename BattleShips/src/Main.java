@@ -47,7 +47,7 @@ public class Main {
 				
 				
 				
-				player.printBoard();
+//				player.printBoard();
 				
 				/*
 				 * TODO:
