@@ -13,6 +13,8 @@ public class Main {
 	private FirstMenu firstMenuPanel;
 	private StatisticsPanel statisticsPanel;
 	private GamePanel gamePanel;
+	
+	
 
 	private void displayGUI() {
 		JFrame frame = new JFrame("BattleShips");
