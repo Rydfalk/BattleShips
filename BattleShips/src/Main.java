@@ -37,8 +37,9 @@ public class Main {
 				
 				
 				Player player = new Player("zenkan");
-				player.setShip(new Ship(3), new Point(0,0), Direction.RIGHT);
-				if(player.setShip(new Ship(3), new Point(0,1), Direction.RIGHT)){
+				player.setShip(new Ship(2), new Point(0,0), Direction.RIGHT);
+				System.out.println("BOAT 2");
+				if(player.setShip(new Ship(3), new Point(3,0), Direction.DOWN )){
 					System.out.println(true);
 				}else{
 					System.out.println(false);
