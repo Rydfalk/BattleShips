@@ -4,11 +4,28 @@ import java.awt.Point;
 
 public class Board {
 
-	private int boardWidth = 7;
+	protected int boardWidth;
 	private Square[][] board;
 
+	/**
+	 * Constructors
+	 */
 	public Board() {
+		boardWidth = 7;
+		createBoard();
+	}
 
+	public Board(int boardWidth) {
+		this.boardWidth = boardWidth;
+		createBoard();
+	}
+
+	/******************* PRIVATE METHODS *******************/
+	/**
+	 * Creates the board with a boardWidth x boardWidth Squares
+	 * 
+	 */
+	private void createBoard() {
 		board = new Square[boardWidth][boardWidth];
 
 		for (int i = 0; i < boardWidth; i++) {
@@ -18,56 +35,11 @@ public class Board {
 		}
 	}
 
+	/******************* PUBLIC METHODS *******************/
+
 	/**
-	 * 
-	 * 
-	 * 
-	 * @param ship
-	 *            : Ship object
-	 * @param startPoint
-	 *            : Point
-	 * @param direction
-	 *            : integer (key-code)
+	 * Prints board
 	 */
-	public void SetShip(Ship ship, Point startPoint, int direction) {
-
-		validPosition(ship, startPoint, direction);
-		
-		
-		switch (direction) {
-		case 1:
-			for (int i = 0; i < ship.getSize(); i++) {
-
-				board[startPoint.y - i][startPoint.x] = Square.OCCUPIED;
-			}
-			break;
-		case 2:
-			for (int i = 0; i < ship.getSize(); i++) {
-
-				board[startPoint.y + i][startPoint.x] = Square.OCCUPIED;
-
-			}
-			break;
-		case 3:
-			for (int i = 0; i < ship.getSize(); i++) {
-
-				board[startPoint.y][startPoint.x + i] = Square.OCCUPIED;
-
-			}
-			break;
-		case 4:
-			for (int i = 0; i < ship.getSize(); i++) {
-
-				board[startPoint.y][startPoint.x - i] = Square.OCCUPIED;
-
-			}
-			break;
-
-		default:
-			break;
-		}
-	}
-
 	public void printBoard() {
 		for (int row = 0; row < boardWidth; row++) {
 			for (int col = 0; col < boardWidth; col++) {
@@ -78,26 +50,87 @@ public class Board {
 	}
 
 	/**
-	 * Checks so that the new ship does not overlap an existing one. (Only used
-	 * in the SetShip method)
+	 * Sets the given coordinates to occupied
 	 * 
-	 * @param startPoint
-	 * @param ship
-	 * @return
+	 *@param point
+	 *            : Point object
 	 */
-	private boolean validPosition(Ship ship, Point startPoint, int direction) { 
-
-		/*	
-		 * TODO: Checks if there is a ship in any of the squares where the player is
-		 * trying to put a ship. 
-		 * 
-		 * if or switch maybe...
-		 *  
-		 *  
-		*/
-		
-		
-		return true;
+	public void occupySquare(Point point) {
+		board[point.y][point.x] = Square.OCCUPIED;
 	}
 	
+	/**
+	 * Sets the given coordinates to occupied
+	 * 
+	 *@param point
+	 *            : Point object
+	 */
+	public void occupySquare(int x, int y) {
+		board[y][x] = Square.OCCUPIED;
+	}
+
+	/**
+	 * Checks if the Square with the given x- and y- coordinates is occupied. If
+	 * so then return true else return false
+	 * 
+	 * @param point
+	 *            : Point object
+	 * @return
+	 */
+	public boolean isOccupied(Point point) {
+		return (board[point.y][point.x] == Square.OCCUPIED);
+	}
+
+	/**
+	 * Checks if the Square with the given x- and y- coordinates is empty. If so
+	 * then return true else return false
+	 * 
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public boolean isEmpty(int x, int y) {
+		return (board[y][x] == Square.EMPTY);
+	}
+
+	/**
+	 * Checks if the Square with the given x- and y- coordinates is empty. If so
+	 * then return true else return false
+	 * 
+	 * @param point
+	 *            : Point object
+	 * @return
+	 */
+	public boolean isEmpty(Point point) {
+		return (board[point.y][point.x] == Square.EMPTY);
+	}
+
+	/**
+	 * Checks if the Square with the given x- and y- coordinates is hit. If so
+	 * then return true else return false
+	 * 
+	 * @param point
+	 *            : Point object
+	 * @return
+	 */
+	public boolean isHit(Point point) {
+		return (board[point.y][point.x] == Square.HIT);
+	}
+
+	/**
+	 * Sets the given coordinates to hit
+	 * 
+	 * @param point
+	 *            : Point object
+	 */
+	public void hitSquare(Point point) {
+		board[point.y][point.x] = Square.HIT;
+	}
+
+	/******************* GETTERS AND SETTERS *******************/
+	public int getBoardWidth() {
+		return boardWidth;
+	}
+
 }
+

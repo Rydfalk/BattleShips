@@ -32,9 +32,7 @@ public class Game {
 	}
 	
 	
-	public void newPlayer(String name){
-		Player player = new Player(name);
-		
+	public void newPlayer(){
 		
 	}
 	
@@ -42,3 +40,4 @@ public class Game {
 		
 	}
 }
+
