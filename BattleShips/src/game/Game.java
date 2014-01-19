@@ -4,9 +4,7 @@ import java.awt.Point;
 import java.util.Scanner;
 
 public class Game {
-	
-	private Scanner scanner = new Scanner(System.in);
-	
+
 	private Point startCoordinate;
 	
 	private int direction;
@@ -31,12 +29,15 @@ public class Game {
 
 	}
 	
-	
-	public void newPlayer(){
+
+	public void addNewHumanPlayer(String text) {
+		// TODO Auto-generated method stub
 		
 	}
-	
-	public void newAI(){
+
+
+	public void addNewAIPlayer(String text) {
+		// TODO Auto-generated method stub
 		
 	}
 }
