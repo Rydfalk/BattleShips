@@ -1,5 +1,4 @@
 
-
 import game.Direction;
 import game.Player;
 import game.Ship;

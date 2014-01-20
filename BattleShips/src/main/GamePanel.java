@@ -1,29 +1,39 @@
 package main;
 
+import game.Game;
+
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 
 class GamePanel extends JPanel {
 
 	private JButton backButton;
-	private JButton newHumanButton;
-	private JButton newAIButton;
+
+	private Game game;
+
+	private JButton[][] grid;
+
 	private JPanel contentPane;
-	
-	private JTextField inputField;
-	
-	
-	private JTextArea playerDisplay;
 
 	private int numberOfPlayers = 0;
+
+	private JPanel gamePanel;
+
+	private JPanel gridPanel;
+
+	private JLabel activePlayerLabel;
+
+	private int width = 7;
+	private int length = 7;
 
 	public GamePanel(JPanel panel) {
 		contentPane = panel;
@@ -37,74 +47,37 @@ class GamePanel extends JPanel {
 				CardLayout cardLayout = (CardLayout) contentPane.getLayout();
 				cardLayout.show(contentPane, "First Menu Card");
 
-			}
-		});
+				gridPanel = new JPanel(new GridLayout(width, length));
+				gridPanel.setMinimumSize(getPreferredSize());
+				grid = new JButton[width][length];
+				for (int y = 0; y < length; y++) {
+					for (int x = 0; x < width; x++) {
+						grid[x][y] = new JButton();
+						gridPanel.add(grid[x][y]);
 
-		add(backButton);
-
-		newHumanButton = new JButton("New Human Player");
-		newHumanButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				inputField.setEnabled(true);
-				/*
-				 * TODO: call "addNewHuman-method"
-				 */
-				numberOfPlayers++;
-
-				if (numberOfPlayers == 2) {
-
-					/*
-					 * Start game
-					 */
-
+					}
 				}
-				
-				inputField.setEnabled(false);
 			}
+
 		});
 
-		add(newHumanButton);
+		gridPanel.setBounds(130, 150, 250, 250);
 
-		newAIButton = new JButton("New AI Player");
-		newAIButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				inputField.setEnabled(true);
+		add(gridPanel, BorderLayout.CENTER);
 
-				/*
-				 * TODO: call "addNewAI-method"
-				 */
-				numberOfPlayers++;
+		try {
 
-				if (numberOfPlayers == 2) {
-					
-					/*
-					 * Start game
-					 */
-				}
-				
-				inputField.setEnabled(false);
+			activePlayerLabel.setText((game.getPlayer(1)));
 
-			}
-		});
+		} catch (Exception e) {
+			System.out.println("Could not find the player");
+		}
 
-		add(newAIButton);
-		
-		playerDisplay = new JTextArea(2,20);
-		add(playerDisplay);
-		
-		inputField = new JTextField(20);
-		inputField.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				playerDisplay.append(inputField.getText() + "\n");
-				
-				
-			}
-		});
-		add(inputField);
-		
-		
-		
-		
+		activePlayerLabel = new JLabel("");
+		activePlayerLabel.setForeground(Color.WHITE);
+		activePlayerLabel.setBounds(250, 100, 50, 50);
+		add(activePlayerLabel);
+
 	}
 
 	@Override
