@@ -1,3 +1,4 @@
+
 import game.Direction;
 import game.Player;
 import game.Ship;
@@ -34,9 +35,17 @@ public class Main {
 			public void actionPerformed(ActionEvent event) {
 				
 				
-				Player player = new Player("zenkan");
+				Player player = new Player("Villiam");
+				player.registerWin();
+				player.registerWin();
+				player.registerWin();
+				player.registerWin();
+				player.registerWin();
+				player.registerLoss();
+				player.registerLoss();
+				player.registerLoss();
+				player.saveStats();
 				player.setShip(new Ship(2), new Point(0,0), Direction.RIGHT);
-				System.out.println("BOAT 2");
 				if(player.setShip(new Ship(3), new Point(3,0), Direction.DOWN )){
 					System.out.println(true);
 				}else{

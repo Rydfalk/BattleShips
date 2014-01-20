@@ -17,6 +17,7 @@ class FirstMenu extends JPanel {
 	private JPanel contentPane;
 /*************************** Constructors ******************************/
 	
+/*************************** Public Methods ******************************/
 	public FirstMenu(JPanel panel) {
 		contentPane = panel;
 		setOpaque(true);
@@ -39,7 +40,7 @@ class FirstMenu extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				
 				CardLayout cardLayout = (CardLayout) contentPane.getLayout();
-				cardLayout.show(contentPane, "Player Card" );
+				cardLayout.show(contentPane, "Game Card" );
 				
 			}
 		});
