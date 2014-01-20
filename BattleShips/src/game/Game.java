@@ -31,13 +31,21 @@ public class Game {
 
 	}
 	
-	
-	public void newPlayer(){
+	public void addNewHumanPlayer(){
 		
 	}
 	
-	public void newAI(){
+	public void addNewAIPlayer(){
 		
 	}
+	
+	public void initialize(){
+		
+		/*
+		 * TODO: Gameloop
+		 */
+		
+	}
+
 }
 
