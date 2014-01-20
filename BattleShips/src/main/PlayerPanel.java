@@ -78,6 +78,7 @@ class PlayerPanel extends JPanel {
 		add(newHumanButton);
 
 		newAIButton = new JButton("New AI Player");
+		newAIButton.setEnabled(false); //Not usable until we have AI
 		newAIButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -118,7 +119,7 @@ class PlayerPanel extends JPanel {
 					
 					CardLayout cardLayout = (CardLayout) contentPane.getLayout();
 					cardLayout.show(contentPane, "Game Card");
-					
+					game.initialize();
 				}
 				
 			}
