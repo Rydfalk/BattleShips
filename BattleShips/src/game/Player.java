@@ -10,7 +10,7 @@ public class Player {
 
 	/******************* CLASS VARIABLES *******************/
 	private String name;
-	private int wins, losses;
+	private int wins, losses, hitPercentage;
 	private DatabaseObject dbo;
 	private String databaseTableName = "statistics";
 
@@ -18,7 +18,8 @@ public class Player {
 	 * The columns and types for the database table
 	 */
 	private String[][] databaseColumns = { { "id", "int" },
-			{ "name", "varchar(16)" }, { "wins", "int" }, { "losses", "int" } };
+			{ "name", "varchar(16)" }, { "wins", "int" }, { "losses", "int" },
+			{ "hit_percentage", "DECIMAL(2,2)" } };
 
 	private Board board = new Board();
 
@@ -30,9 +31,11 @@ public class Player {
 
 		if (!dbo.tableExists(databaseTableName)) {
 			dbo.createTable(databaseTableName, databaseColumns);
+
 			createPlayer(this.name);
 		}
 		if (playerExists(name)) {
+
 			getPlayer(name);
 		} else {
 			createPlayer(name);
@@ -43,20 +46,14 @@ public class Player {
 	/******************* PRIVATE METHODS *******************/
 	private void createPlayer(String name) {
 		dbo = new DatabaseObject();
+
 		String sql = "INSERT INTO " + databaseTableName
-				+ " (name, wins, losses) VALUES ('" + name + "', 0, 0)";
+				+ " (name, wins, losses, hit_percentage) VALUES ('" + name
+				+ "', 0, 0, 0)";
 
 		dbo.write(sql);
 		dbo.closeConnection();
 
-	}
-
-	private void deletePlayer() {
-		dbo = new DatabaseObject();
-		String sql = "DELETE FROM " + databaseTableName + " WHERE name = '"
-				+ name + "'";
-		dbo.write(sql);
-		dbo.closeConnection();
 	}
 
 	private void getPlayer(String name) {
@@ -75,27 +72,38 @@ public class Player {
 	}
 
 	private boolean playerExists(String name) {
-
+		boolean returnValue = false;
 		String sql = "SELECT count(*) FROM statistics WHERE name='" + name
 				+ "'";
 		try {
 			ResultSet rs = dbo.read(sql);
-			dbo.closeConnection();
 			// Returns true if the count of matched tables are one or more
 			if (rs.getInt("count(*)") > 0) {
-				return true;
+				returnValue = true;
 			}
+			dbo.closeConnection();
 		} catch (SQLException e) {
 			dbo.handleError(e);
 		}
 
-		return false;
+		return returnValue;
 
 	}
 
 	/******************* PROTECTED METHODS *******************/
 
 	/******************* PUBLIC METHODS *******************/
+
+	/**
+	 * Deletes player from database
+	 */
+	private void deletePlayer() {
+		dbo = new DatabaseObject();
+		String sql = "DELETE FROM " + databaseTableName + " WHERE name = '"
+				+ name + "'";
+		dbo.write(sql);
+		dbo.closeConnection();
+	}
 
 	/**
 	 * Asks the player for a move, checks if its valid. If it's not valid we'll
@@ -235,11 +243,9 @@ public class Player {
 
 		dbo.closeConnection();
 	}
-
+	
+	
 	/******************* GETTERS AND SETTERS *******************/
-	public String getPlayerName() {
-		return name;
-	}
 
 	public Board getBoard() {
 		return board;
@@ -262,4 +268,3 @@ public class Player {
 	}
 
 }
-

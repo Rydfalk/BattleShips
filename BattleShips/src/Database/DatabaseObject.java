@@ -30,12 +30,12 @@ public class DatabaseObject {
 	 * And initiates the statement handler
 	 * @param dbName
 	 */
-	public DatabaseObject(String dbName){
-		
-		openConnection(dbName);
-		createStmt();
-	}
-	
+//	public DatabaseObject(String dbName){
+//		
+//		openConnection(dbName);
+//		createStmt();
+//	}
+//	
 	
 	
 	/**
@@ -44,7 +44,8 @@ public class DatabaseObject {
 	 * And initiates the statement handler
 	 */
 	public DatabaseObject(){
-		openConnection("test.db");
+		openConnection("Battleships.db");
+
 		createStmt();
 	}
 	
@@ -88,13 +89,10 @@ public class DatabaseObject {
 	}
 	
 	
-	
+
 	
 	
 	/******************* PROTECTED METHODS *******************/
-	
-
-	
 	
 	
 	/******************* PUBLIC METHODS *******************/
@@ -200,6 +198,21 @@ public class DatabaseObject {
 	public void handleError(SQLException e){
 		System.err.println(e.getClass().getName() + ": " + e.getMessage());
 		System.exit(0);
+	}
+	
+	
+	public int countRows(String tableName){
+		int returnValue = 0;
+		String sql = "SELECT count(*) FROM "
+				+ tableName;
+		ResultSet rs = read(sql);
+		try {
+			returnValue = rs.getInt("count(*)");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return returnValue;
 	}
 	
 	
