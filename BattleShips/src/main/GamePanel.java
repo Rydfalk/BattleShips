@@ -3,20 +3,15 @@ package main;
 import game.Game;
 
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 class GamePanel extends JPanel {
-
-	private JButton backButton;
 
 	private Game game;
 
@@ -41,25 +36,16 @@ class GamePanel extends JPanel {
 		setOpaque(true);
 		setBackground(Color.BLUE.darker().darker());
 
-		backButton = new JButton("Back");
-		backButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				CardLayout cardLayout = (CardLayout) contentPane.getLayout();
-				cardLayout.show(contentPane, "First Menu Card");
+		gridPanel = new JPanel(new GridLayout(width, length));
+		gridPanel.setMinimumSize(getPreferredSize());
+		grid = new JButton[width][length];
+		for (int y = 0; y < length; y++) {
+			for (int x = 0; x < width; x++) {
+				grid[x][y] = new JButton();
+				gridPanel.add(grid[x][y]);
 
-				gridPanel = new JPanel(new GridLayout(width, length));
-				gridPanel.setMinimumSize(getPreferredSize());
-				grid = new JButton[width][length];
-				for (int y = 0; y < length; y++) {
-					for (int x = 0; x < width; x++) {
-						grid[x][y] = new JButton();
-						gridPanel.add(grid[x][y]);
-
-					}
-				}
 			}
-
-		});
+		}
 
 		gridPanel.setBounds(130, 150, 250, 250);
 
