@@ -97,7 +97,7 @@ public class Player {
 	/**
 	 * Deletes player from database
 	 */
-	private void deletePlayer() {
+	public void deletePlayer() {
 		dbo = new DatabaseObject();
 		String sql = "DELETE FROM " + databaseTableName + " WHERE name = '"
 				+ name + "'";
@@ -268,4 +268,4 @@ public class Player {
 	}
 
 }
->>>>>>> refs/remotes/origin/Lars-Branch
+
