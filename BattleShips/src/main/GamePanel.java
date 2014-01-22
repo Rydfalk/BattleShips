@@ -21,8 +21,6 @@ class GamePanel extends JPanel {
 
 	private int numberOfPlayers = 0;
 
-	private JPanel gamePanel;
-
 	private JPanel gridPanel;
 
 	private JLabel activePlayerLabel;
@@ -30,8 +28,10 @@ class GamePanel extends JPanel {
 	private int width = 7;
 	private int length = 7;
 
-	public GamePanel(JPanel panel) {
+	public GamePanel(JPanel panel, Game gameObject) {
 		contentPane = panel;
+		
+		game = gameObject;
 
 		setOpaque(true);
 		setBackground(Color.BLUE.darker().darker());

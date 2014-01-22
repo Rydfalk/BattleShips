@@ -33,8 +33,10 @@ class PlayerPanel extends JPanel {
 
 	private Game game;
 
-	public PlayerPanel(JPanel panel) {
+	public PlayerPanel(JPanel panel, Game gameObject) {
 		contentPane = panel;
+		
+		game = gameObject;
 
 		setOpaque(true);
 		setBackground(Color.BLUE.darker().darker());
