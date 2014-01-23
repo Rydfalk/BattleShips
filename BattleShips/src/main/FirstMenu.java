@@ -40,7 +40,7 @@ class FirstMenu extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				
 				CardLayout cardLayout = (CardLayout) contentPane.getLayout();
-				cardLayout.show(contentPane, "Game Card" );
+				cardLayout.show(contentPane, "Player Card");
 				
 			}
 		});

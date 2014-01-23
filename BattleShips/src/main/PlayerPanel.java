@@ -35,6 +35,8 @@ class PlayerPanel extends JPanel {
 	private Game game;
 
 	public PlayerPanel(JPanel panel, Game gameObject) {
+		
+		System.out.println("HEEEJ");
 		contentPane = panel;
 		
 		game = gameObject;
