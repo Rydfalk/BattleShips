@@ -20,6 +20,7 @@ class PlayerPanel extends JPanel {
 	private JButton newHumanButton;
 	private JButton newAIButton;
 	private JButton startGameButton;
+	private JButton removeLastButton;
 
 	private JPanel contentPane;
 
@@ -103,6 +104,8 @@ class PlayerPanel extends JPanel {
 		});
 
 		add(newAIButton);
+		
+		
 
 		playerDisplay = new JTextArea(3, 20);
 		playerDisplay.setEditable(false);
@@ -131,6 +134,18 @@ class PlayerPanel extends JPanel {
 		statusMessagesText = new JLabel("Add new players!");
 		statusMessagesText.setForeground(Color.WHITE);
 		add(statusMessagesText);
+		
+		removeLastButton = new JButton("");
+		removeLastButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				if(true){
+//					donothing
+				}
+				
+			}
+		});
+		add(removeLastButton);
 
 	}
 

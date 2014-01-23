@@ -14,6 +14,7 @@ public class Main {
 	private JPanel contentPane;
 	private FirstMenu firstMenuPanel;
 	private StatisticsPanel statisticsPanel;
+	private PlayerPanel playerPanel;
 	private GamePanel gamePanel;
 	
 	private Game game;
@@ -28,10 +29,11 @@ public class Main {
 		contentPane.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new CardLayout());
 		firstMenuPanel = new FirstMenu(contentPane);
-		statisticsPanel = new StatisticsPanel(contentPane, game);
+		statisticsPanel = new StatisticsPanel(contentPane);
 		gamePanel = new GamePanel(contentPane, game);
 		contentPane.add(firstMenuPanel, "First Menu Card");
 		contentPane.add(statisticsPanel, "Statistics Card");
+		contentPane.add(playerPanel, "Player Card");
 		contentPane.add(gamePanel, "Game Card");
 		frame.setContentPane(contentPane);
 		frame.pack();
