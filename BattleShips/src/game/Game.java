@@ -5,9 +5,14 @@ import java.util.ArrayList;
 
 public class Game {
 
+
 	private ArrayList<Player> players = new ArrayList<Player>(2);
 
-	private Player activePlayer;
+	private ActivePlayer activePlayer;
+	
+	private enum ActivePlayer{
+		PLAYER1(), PLAYER2();
+	}
 
 	public Game() {
 
@@ -31,8 +36,13 @@ public class Game {
 
 	}
 
-	public String getActivePlayerName() {
-		return activePlayer.getName();
+	public Player getActivePlayerName() {
+		
+		if(activePlayer==ActivePlayer.PLAYER1){
+			return players.get(0);
+		}else{
+			return players.get(1);
+		}
 
 	}
 
@@ -44,7 +54,7 @@ public class Game {
 
 	public void initialize() {
 
-		activePlayer = players.get(0);
+		activePlayer = ActivePlayer.PLAYER1;
 		while (!gameOver()) {
 
 		}
