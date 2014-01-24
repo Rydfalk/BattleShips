@@ -39,6 +39,7 @@ class FirstMenu extends JPanel {
 		gameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				
 				CardLayout cardLayout = (CardLayout) contentPane.getLayout();
 				cardLayout.show(contentPane, "Player Card");
 				

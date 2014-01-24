@@ -23,8 +23,6 @@ public class Main {
 		JFrame frame = new JFrame("BattleShips");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		game = new Game();
-
 		JPanel contentPane = new JPanel();
 		
 		contentPane.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
@@ -54,4 +52,5 @@ public class Main {
 			}
 		});
 	}
+	
 }

@@ -53,7 +53,7 @@ class GamePanel extends JPanel {
 
 		try {
 
-			activePlayerLabel.setText((game.getPlayer(1)));
+			activePlayerLabel.setText((game.getPlayerName(1)));
 
 		} catch (Exception e) {
 			System.out.println("Could not find the player");

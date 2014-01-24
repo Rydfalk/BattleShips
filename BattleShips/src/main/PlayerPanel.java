@@ -20,7 +20,8 @@ class PlayerPanel extends JPanel {
 	private JButton newHumanButton;
 	private JButton newAIButton;
 	private JButton startGameButton;
-	private JButton removeLastButton;
+	private JButton removeLastPlayer;
+	private JButton deletePlayer;
 
 	private JPanel contentPane;
 
@@ -36,7 +37,6 @@ class PlayerPanel extends JPanel {
 
 	public PlayerPanel(JPanel panel, Game gameObject) {
 		
-		System.out.println("HEEEJ");
 		contentPane = panel;
 		
 		game = gameObject;
@@ -57,7 +57,7 @@ class PlayerPanel extends JPanel {
 
 		add(backButton);
 
-		newHumanButton = new JButton("New Human Player");
+		newHumanButton = new JButton("New Player");
 		newHumanButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -82,7 +82,7 @@ class PlayerPanel extends JPanel {
 
 		add(newHumanButton);
 
-		newAIButton = new JButton("New AI Player");
+		newAIButton = new JButton("New AI");
 		newAIButton.setEnabled(false); //Not usable until we have AI
 		newAIButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -106,6 +106,26 @@ class PlayerPanel extends JPanel {
 		});
 
 		add(newAIButton);
+		
+		removeLastPlayer = new JButton("Remove Player");
+		removeLastPlayer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				game.removeLastPlayer();
+				
+			}
+		});
+		add(removeLastPlayer);
+		
+		deletePlayer = new JButton("Delete Player");
+		deletePlayer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				System.out.println(game.deletePlayer(inputField.getText()));
+				
+			}
+		});
+		add(deletePlayer);
 		
 		
 
@@ -137,17 +157,7 @@ class PlayerPanel extends JPanel {
 		statusMessagesText.setForeground(Color.WHITE);
 		add(statusMessagesText);
 		
-		removeLastButton = new JButton("");
-		removeLastButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				if(true){
-//					donothing
-				}
-				
-			}
-		});
-		add(removeLastButton);
+		
 
 	}
 

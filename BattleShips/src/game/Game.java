@@ -1,26 +1,25 @@
 package game;
 
 import java.awt.Point;
+import java.util.ArrayList;
 
 public class Game {
 
-	private Point startCoordinate;
+	private ArrayList<Player> players = new ArrayList<Player>(2);
 
-	private int direction;
+	private Player activePlayer;
 
-	private Player[] players = new Player[2];
-
-	public static void main(String[] args) {
+	public Game() {
 
 	}
 
-	public void addNewHumanPlayer(String text) {
+	public void addNewHumanPlayer(String name) {
 
-		Player player = new Player(text);
-		if (players[1].equals(null)) {
-			players[1] = player;
+		Player player = new Player(name);
+		if (players.isEmpty()) {
+			players.add(0, player);
 		} else {
-			players[2] = player;
+			players.add(1, player);
 		}
 
 	}
@@ -32,27 +31,63 @@ public class Game {
 
 	}
 
-	public String getActivePlayer() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getActivePlayerName() {
+		return activePlayer.getName();
 
 	}
 
-	public String getPlayer(int i) {
+	public String getPlayerName(int playerNumber) {
 
-		try {
-			return players[i].getName();
-		} catch (Exception e) {
-			return new String("No player");
-		}
+		return players.get(playerNumber - 1).getName();
 
 	}
 
 	public void initialize() {
 
-		/*
-		 * TODO: Game loop
-		 */
+		activePlayer = players.get(0);
+		while (!gameOver()) {
+
+		}
+
+	}
+
+	private boolean gameOver() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public String removeLastPlayer() {
+		String returnString;
+
+		if (players.size() == 2) {
+			returnString = players.get(1).getName();
+			players.remove(1);
+			return "Removed " + returnString;
+		} else if (players.size() == 1) {
+			returnString = players.get(0).getName();
+			players.remove(0);
+			return "Removed " + returnString;
+		} else {
+			return "No player to remove!";
+		}
+
+	}
+
+	public String deletePlayer(String name) {
+		String returnString;
+		
+		if(players.get(0).getName() == name){
+
+			returnString = "Player " + players.get(0).getName()+ " was deleted";
+			players.get(0).deletePlayer();
+			return returnString;
+		}else if(players.get(1).getName() == name){
+			returnString = "Player " + players.get(1).getName()+ " was deleted";
+			players.get(1).deletePlayer();
+			return returnString;
+		}else{
+			return "Could not delete player";
+		}
 		
 	}
 }
