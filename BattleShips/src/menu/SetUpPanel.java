@@ -1,12 +1,11 @@
 package menu;
 
+import game.Board;
 import game.Game;
 
-import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -15,8 +14,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 class SetUpPanel extends JPanel {
-
+	
 	private Game game;
+	
+	private Board board;
 
 	private JButton[][] grid;
 
@@ -24,52 +25,30 @@ class SetUpPanel extends JPanel {
 
 	private JPanel gridPanel;
 
+	private JPanel buttonPanel;
+
 	private JLabel activePlayerLabel;
 
-	private int xCoordinate;
-	private int yCoordinate;
 	private int width = 7;
 	private int length = 7;
 
 	public SetUpPanel(JPanel panel, Game gameObject) {
 		
-		System.out.println("HEEEEEJ");
 		contentPane = panel;
 
 		game = gameObject;
+		
+		board = new Board();
 
 		setOpaque(true);
 		setBackground(Color.BLACK);
 		setLayout(null);
 
-		gridPanel = new JPanel(new GridLayout(width, length));
-		grid = new JButton[width][length];
-		for (yCoordinate = 0; yCoordinate < length; yCoordinate++) {
-			for (xCoordinate = 0; xCoordinate < width; xCoordinate++) {
-				grid[xCoordinate][yCoordinate] = new JButton();
+		gridPanel = board.getGridPanel(this);
+		
 
-				grid[xCoordinate][yCoordinate]
-						.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent e) {
-								
-								/*
-								 * TODO: Something like this
-								 * 
-								 * game.getActivePlayer().registerButtonPressed(
-								 * xCoordinate,yCoordinate);
-								 */
-								
-							}
-						});
-
-				
-				gridPanel.add(grid[xCoordinate][yCoordinate]);
-
-			}
-		}
-
-		gridPanel.setBounds(130, 150, 250, 250);
-
+		gridPanel.setVisible(true);
+		
 		add(gridPanel);
 
 		try {
@@ -84,6 +63,22 @@ class SetUpPanel extends JPanel {
 		activePlayerLabel.setForeground(Color.WHITE);
 		activePlayerLabel.setBounds(250, 100, 50, 50);
 		add(activePlayerLabel);
+		
+		JButton devButton = new JButton("DevButton");
+		devButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				CardLayout cardLayout = (CardLayout) contentPane.getLayout();
+				cardLayout.next(contentPane);;
+				
+			}
+		});
+		
+		devButton.setBounds(400, 400, 20, 20);
+		add(devButton);
+		
+		
 
 	}
 

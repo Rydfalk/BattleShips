@@ -1,11 +1,21 @@
 package game;
 
+import java.awt.Color;
+import java.awt.GridLayout;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
 
 public class Board {
 
 	protected int boardWidth;
 	private Square[][] board;
+	
+	private JPanel gridPanel;
+	private JButton[][] grid;
 
 	/**
 	 * Constructors
@@ -184,6 +194,46 @@ public class Board {
 	/******************* GETTERS AND SETTERS *******************/
 	public int getBoardWidth() {
 		return boardWidth;
+	}
+	
+	public JPanel getGridPanel(JPanel sentPanel) {
+		
+		gridPanel = new JPanel();
+		
+		JPanel activePanel = sentPanel;
+		
+		gridPanel.setOpaque(true);
+		gridPanel.setBackground(Color.WHITE);
+		gridPanel.setBounds(130, 150, 250, 250);
+		
+		gridPanel.setLayout(new GridLayout(boardWidth, boardWidth));
+		
+		
+		grid = new JButton[boardWidth][boardWidth];
+		for (int yCoordinate = 0; yCoordinate < boardWidth; yCoordinate++) {
+			for (int xCoordinate = 0; xCoordinate < boardWidth; xCoordinate++) {
+				grid[xCoordinate][yCoordinate] = new JButton();
+
+				grid[xCoordinate][yCoordinate]
+						.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+
+								/*
+								 * TODO: Something like this
+								 * 
+								 * activePanel.game.getActivePlayer().registerButtonPressed(
+								 * xCoordinate,yCoordinate);
+								 */
+
+							}
+						});
+
+				gridPanel.add(grid[xCoordinate][yCoordinate]);
+			}
+		}
+		
+		return gridPanel;
+
 	}
 
 }

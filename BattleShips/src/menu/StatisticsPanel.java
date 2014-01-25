@@ -91,11 +91,28 @@ class StatisticsPanel extends JPanel {
 		 * Adds the back-button to the panel
 		 */
 		add(backButton);
+		
+		
+		JButton devButton = new JButton("DevButton");
+		devButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				CardLayout cardLayout = (CardLayout) contentPane.getLayout();
+				cardLayout.next(contentPane);;
+				
+			}
+		});
+		add(devButton);
+		
 
 		/*
 		 * Closes the databaseconnection
 		 */
 		dbo.closeConnection();
+		
+		
+		
 	}
 
 	@Override

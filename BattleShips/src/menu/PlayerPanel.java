@@ -146,7 +146,7 @@ class PlayerPanel extends JPanel {
 
 					CardLayout cardLayout = (CardLayout) contentPane
 							.getLayout();
-					cardLayout.show(contentPane, "Game Card");
+					cardLayout.show(contentPane, "Setup Card");
 					game.initialize();
 				}
 
@@ -157,6 +157,18 @@ class PlayerPanel extends JPanel {
 		statusMessagesText = new JLabel("Add new players!");
 		statusMessagesText.setForeground(Color.WHITE);
 		add(statusMessagesText);
+		
+		JButton devButton = new JButton("DevButton");
+		devButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				CardLayout cardLayout = (CardLayout) contentPane.getLayout();
+				cardLayout.next(contentPane);;
+				
+			}
+		});
+		add(devButton);
 
 	}
 

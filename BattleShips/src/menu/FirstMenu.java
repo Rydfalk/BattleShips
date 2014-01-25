@@ -14,6 +14,9 @@ import javax.swing.JPanel;
 class FirstMenu extends JPanel {
 	private JButton statisticsButton;
 	private JButton gameButton;
+	
+	private JButton devButton;
+	
 	private JPanel contentPane;
 /*************************** Constructors ******************************/
 	
@@ -46,6 +49,19 @@ class FirstMenu extends JPanel {
 			}
 		});
 		add(gameButton);
+		
+		devButton = new JButton("DevButton");
+		devButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				CardLayout cardLayout = (CardLayout) contentPane.getLayout();
+				cardLayout.next(contentPane);;
+				
+			}
+		});
+		add(devButton);
+		
 	}
 	
 	
