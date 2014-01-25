@@ -36,9 +36,9 @@ class PlayerPanel extends JPanel {
 	private Game game;
 
 	public PlayerPanel(JPanel panel, Game gameObject) {
-		
+
 		contentPane = panel;
-		
+
 		game = gameObject;
 
 		setOpaque(true);
@@ -61,36 +61,37 @@ class PlayerPanel extends JPanel {
 		newHumanButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				/*
-				 * TODO: call "addNewHuman-method"
-				 */
+				if (inputField.getText().length() > 0) {
 
-				game.addNewHumanPlayer(inputField.getText().trim());
-				playerDisplay.append(inputField.getText() + "\n");
-				numberOfPlayers++;
+					game.addNewHumanPlayer(inputField.getText().trim());
+					playerDisplay.append(inputField.getText() + "\n");
+					numberOfPlayers++;
 
-				if (numberOfPlayers == 2) {
+					if (numberOfPlayers == 2) {
 
-					newHumanButton.setEnabled(false);
-					newAIButton.setEnabled(false);
-					statusMessagesText.setText("Start Game!");
+						newHumanButton.setEnabled(false);
+						newAIButton.setEnabled(false);
+						statusMessagesText.setText("Start Game!");
 
+					}
+				} else {
+					statusMessagesText.setText("You must write a name");
 				}
-			}
 
+			}
 		});
 
 		add(newHumanButton);
 
 		newAIButton = new JButton("New AI");
-		newAIButton.setEnabled(false); //Not usable until we have AI
+		newAIButton.setEnabled(false); // Not usable until we have AI
 		newAIButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				/*
 				 * TODO: call "addNewAI-method"
 				 */
-			
+
 				game.addNewAIPlayer(inputField.getText().trim());
 				playerDisplay.append(inputField.getText() + "\n");
 				numberOfPlayers++;
@@ -106,29 +107,27 @@ class PlayerPanel extends JPanel {
 		});
 
 		add(newAIButton);
-		
+
 		removeLastPlayer = new JButton("Remove Player");
 		removeLastPlayer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				statusMessagesText.setText(game.removeLastPlayer());
-				
+
 			}
 		});
 		add(removeLastPlayer);
-		
+
 		deletePlayer = new JButton("Delete Player");
 		deletePlayer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				statusMessagesText.setText(game.deletePlayer(inputField.getText()));
-				
-				
+				statusMessagesText.setText(game.deletePlayer(inputField
+						.getText()));
+
 			}
 		});
 		add(deletePlayer);
-		
-		
 
 		playerDisplay = new JTextArea(3, 20);
 		playerDisplay.setEditable(false);
@@ -143,13 +142,14 @@ class PlayerPanel extends JPanel {
 		startGameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				if(numberOfPlayers == 2){
-					
-					CardLayout cardLayout = (CardLayout) contentPane.getLayout();
+				if (numberOfPlayers == 2) {
+
+					CardLayout cardLayout = (CardLayout) contentPane
+							.getLayout();
 					cardLayout.show(contentPane, "Game Card");
 					game.initialize();
 				}
-				
+
 			}
 		});
 		add(startGameButton);
@@ -157,8 +157,6 @@ class PlayerPanel extends JPanel {
 		statusMessagesText = new JLabel("Add new players!");
 		statusMessagesText.setForeground(Color.WHITE);
 		add(statusMessagesText);
-		
-		
 
 	}
 

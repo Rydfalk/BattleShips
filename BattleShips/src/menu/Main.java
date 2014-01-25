@@ -17,6 +17,7 @@ public class Main {
 	private FirstMenu firstMenuPanel;
 	private StatisticsPanel statisticsPanel;
 	private PlayerPanel playerPanel;
+	private SetUpPanel setupPanel;
 	private GamePanel gamePanel;
 
 	private Game game;
@@ -34,11 +35,13 @@ public class Main {
 		firstMenuPanel = new FirstMenu(contentPane);
 		statisticsPanel = new StatisticsPanel(contentPane);
 		playerPanel = new PlayerPanel(contentPane, game);
-		gamePanel = new GamePanel(contentPane, game);
+		setupPanel = new SetUpPanel(contentPane, game);
+		gamePanel = new GamePanel(contentPane,game);
 		
 		contentPane.add(firstMenuPanel, "First Menu Card");
 		contentPane.add(statisticsPanel, "Statistics Card");
 		contentPane.add(playerPanel, "Player Card");
+		contentPane.add(setupPanel, "Setup Card");
 		contentPane.add(gamePanel, "Game Card");
 		
 		frame.setContentPane(contentPane);
