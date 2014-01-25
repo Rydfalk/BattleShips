@@ -1,4 +1,4 @@
-package main;
+package menu;
 
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -14,6 +14,9 @@ import javax.swing.JPanel;
 class FirstMenu extends JPanel {
 	private JButton statisticsButton;
 	private JButton gameButton;
+	
+	private JButton devButton;
+	
 	private JPanel contentPane;
 /*************************** Constructors ******************************/
 	
@@ -39,12 +42,26 @@ class FirstMenu extends JPanel {
 		gameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				
 				CardLayout cardLayout = (CardLayout) contentPane.getLayout();
-				cardLayout.show(contentPane, "Game Card" );
+				cardLayout.show(contentPane, "Player Card");
 				
 			}
 		});
 		add(gameButton);
+		
+		devButton = new JButton("DevButton");
+		devButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				CardLayout cardLayout = (CardLayout) contentPane.getLayout();
+				cardLayout.next(contentPane);;
+				
+			}
+		});
+		add(devButton);
+		
 	}
 	
 	

@@ -1,29 +1,30 @@
 package game;
 
-import java.awt.Point;
+import java.util.ArrayList;
 
 public class Game {
+
+
+	private ArrayList<Player> players = new ArrayList<Player>(2);
+
+	private ActivePlayer activePlayer;
 	
-	private Point startCoordinate;
+	private enum ActivePlayer{
+		PLAYER1(), PLAYER2();
+	}
 
-	private int direction;
-
-	private Player[] players = new Player[2];
-
-	public static void main(String[] args) {
-
-		Ship ship1 = new Ship(1);
-		Ship ship2 = new Ship(2);
-		Ship ship3 = new Ship(3);
-		Ship ship4 = new Ship(4);
+	public Game() {
 
 	}
 
-	public void addNewHumanPlayer(String text) {
+	public void addNewHumanPlayer(String name) {
 
-	/*
-	 * TODO: Add new player
-	 */
+		Player player = new Player(name);
+		if (players.isEmpty()) {
+			players.add(0, player);
+		} else {
+			players.add(1, player);
+		}
 
 	}
 
@@ -34,23 +35,75 @@ public class Game {
 
 	}
 
-	public String getActivePlayer() {
-		// TODO Auto-generated method stub
-		return null;
-
-	}
-
-	public String getPlayer(int i) {
-
-		return players[i].getName();
-
-	}
-
-	public void initialize() {
+	public Player getActivePlayer() {
 		
-		/*
-		 * TODO: Game loop
-		 */
+		if(activePlayer==ActivePlayer.PLAYER1){
+			return players.get(0);
+		}else{
+			return players.get(1);
+		}
+
+	}
+
+	public String getPlayerName(int playerNumber) {
+
+		return players.get(playerNumber - 1).getName();
+
+	}
+
+	public void startGame() {
+		System.out.println("INITIALIZED!");
+		activePlayer = ActivePlayer.PLAYER1;
+		
+
+	}
+
+	private boolean gameOver() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public String removeLastPlayer() {
+		String returnString;
+
+		if (players.size() == 2) {
+			returnString = players.get(1).getName();
+			players.remove(1);
+			return "Removed " + returnString;
+		} else if (players.size() == 1) {
+			returnString = players.get(0).getName();
+			players.remove(0);
+			return "Removed " + returnString;
+		} else {
+			return "No player to remove!";
+		}
+
+	}
+
+	public String deletePlayer(String name) {
+		String returnString;
+		
+		if(players.isEmpty()){
+			return "You must add a player to the list in order to delete it";
+		}
+		
+		if(players.get(0).getName().equals(name)){
+
+			returnString = "Player " + players.get(0).getName()+ " was deleted";
+			players.get(0).deletePlayer();
+			return returnString;
+		}else if(players.get(1).getName().equals(name)){
+			returnString = "Player " + players.get(1).getName()+ " was deleted";
+			players.get(1).deletePlayer();
+			return returnString;
+		}else{
+			return "Could not delete player";
+		}
+		
+	}
+
+	public void setCoordinates(int x, int y) {
+		// TODO Auto-generated method stub
 		
 	}
 }
