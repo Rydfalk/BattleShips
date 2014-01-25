@@ -54,9 +54,7 @@ public class Game {
 	public void initialize() {
 
 		activePlayer = ActivePlayer.PLAYER1;
-		while (!gameOver()) {
-
-		}
+		
 
 	}
 
