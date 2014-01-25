@@ -1,4 +1,4 @@
-package jpanelsandbuttons;
+package menu;
 
 import game.Game;
 
