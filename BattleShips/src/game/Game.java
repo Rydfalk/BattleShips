@@ -1,6 +1,5 @@
 package game;
 
-import java.awt.Point;
 import java.util.ArrayList;
 
 public class Game {
@@ -36,7 +35,7 @@ public class Game {
 
 	}
 
-	public Player getActivePlayerName() {
+	public Player getActivePlayer() {
 		
 		if(activePlayer==ActivePlayer.PLAYER1){
 			return players.get(0);

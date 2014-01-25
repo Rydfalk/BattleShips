@@ -28,12 +28,14 @@ class GamePanel extends JPanel {
 
 	private JLabel activePlayerLabel;
 
+	private int xCoordinate;
+	private int yCoordinate;
 	private int width = 7;
 	private int length = 7;
 
 	public GamePanel(JPanel panel, Game gameObject) {
 		contentPane = panel;
-		
+
 		game = gameObject;
 
 		setOpaque(true);
@@ -42,19 +44,24 @@ class GamePanel extends JPanel {
 		gridPanel = new JPanel(new GridLayout(width, length));
 		gridPanel.setMinimumSize(getPreferredSize());
 		grid = new JButton[width][length];
-		for (int y = 0; y < length; y++) {
-			for (int x = 0; x < width; x++) {
-				grid[x][y] = new JButton();
-				
-				grid[x][y].addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						
-					
+		for (yCoordinate = 0; yCoordinate < length; yCoordinate++) {
+			for (xCoordinate = 0; xCoordinate < width; xCoordinate++) {
+				grid[xCoordinate][yCoordinate] = new JButton();
 
-					}
-				});
-				
-				gridPanel.add(grid[x][y]);
+				grid[xCoordinate][yCoordinate]
+						.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+
+								/*
+								 * TODO: Something like this
+								 * 
+								 * game.getActivePlayer().registerButtonPressed(
+								 * xCoordinate,yCoordinate);
+								 */
+							}
+						});
+
+				gridPanel.add(grid[xCoordinate][yCoordinate]);
 
 			}
 		}
