@@ -22,8 +22,6 @@ class GamePanel extends JPanel {
 
 	private JPanel contentPane;
 
-	private int numberOfPlayers = 0;
-
 	private JPanel gridPanel;
 
 	private JLabel activePlayerLabel;
@@ -34,15 +32,17 @@ class GamePanel extends JPanel {
 	private int length = 7;
 
 	public GamePanel(JPanel panel, Game gameObject) {
+		
+		System.out.println("HEEEEEJ");
 		contentPane = panel;
 
 		game = gameObject;
 
 		setOpaque(true);
-		setBackground(Color.BLUE.darker().darker());
+		setBackground(Color.BLACK);
+		setLayout(null);
 
 		gridPanel = new JPanel(new GridLayout(width, length));
-		gridPanel.setMinimumSize(getPreferredSize());
 		grid = new JButton[width][length];
 		for (yCoordinate = 0; yCoordinate < length; yCoordinate++) {
 			for (xCoordinate = 0; xCoordinate < width; xCoordinate++) {
@@ -51,6 +51,7 @@ class GamePanel extends JPanel {
 				grid[xCoordinate][yCoordinate]
 						.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
+								
 
 								/*
 								 * TODO: Something like this
@@ -61,6 +62,7 @@ class GamePanel extends JPanel {
 							}
 						});
 
+				
 				gridPanel.add(grid[xCoordinate][yCoordinate]);
 
 			}
@@ -68,7 +70,7 @@ class GamePanel extends JPanel {
 
 		gridPanel.setBounds(130, 150, 250, 250);
 
-		add(gridPanel, BorderLayout.CENTER);
+		add(gridPanel);
 
 		try {
 

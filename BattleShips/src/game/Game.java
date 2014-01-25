@@ -52,7 +52,7 @@ public class Game {
 	}
 
 	public void initialize() {
-
+		System.out.println("INITIALIZED!");
 		activePlayer = ActivePlayer.PLAYER1;
 		
 
@@ -83,12 +83,16 @@ public class Game {
 	public String deletePlayer(String name) {
 		String returnString;
 		
-		if(players.get(0).getName() == name){
+		if(players.isEmpty()){
+			return "You must add a player to the list in order to delete it";
+		}
+		
+		if(players.get(0).getName().equals(name)){
 
 			returnString = "Player " + players.get(0).getName()+ " was deleted";
 			players.get(0).deletePlayer();
 			return returnString;
-		}else if(players.get(1).getName() == name){
+		}else if(players.get(1).getName().equals(name)){
 			returnString = "Player " + players.get(1).getName()+ " was deleted";
 			players.get(1).deletePlayer();
 			return returnString;
