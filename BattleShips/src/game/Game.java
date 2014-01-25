@@ -100,4 +100,9 @@ public class Game {
 		}
 		
 	}
+
+	public void setCoordinates(int x, int y) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -1,4 +1,4 @@
-package main;
+package jpanelsandbuttons;
 
 import java.awt.CardLayout;
 import java.awt.Color;

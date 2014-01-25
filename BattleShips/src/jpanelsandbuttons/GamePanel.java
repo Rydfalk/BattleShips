@@ -1,11 +1,14 @@
-package main;
+package jpanelsandbuttons;
 
 import game.Game;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -42,6 +45,15 @@ class GamePanel extends JPanel {
 		for (int y = 0; y < length; y++) {
 			for (int x = 0; x < width; x++) {
 				grid[x][y] = new JButton();
+				
+				grid[x][y].addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+					
+
+					}
+				});
+				
 				gridPanel.add(grid[x][y]);
 
 			}

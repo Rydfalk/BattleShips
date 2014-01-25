@@ -1,4 +1,4 @@
-package main;
+package jpanelsandbuttons;
 
 import game.Game;
 
@@ -111,7 +111,7 @@ class PlayerPanel extends JPanel {
 		removeLastPlayer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				game.removeLastPlayer();
+				statusMessagesText.setText(game.removeLastPlayer());
 				
 			}
 		});
@@ -121,7 +121,8 @@ class PlayerPanel extends JPanel {
 		deletePlayer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				System.out.println(game.deletePlayer(inputField.getText()));
+				statusMessagesText.setText(game.deletePlayer(inputField.getText()));
+				
 				
 			}
 		});

@@ -9,6 +9,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import jpanelsandbuttons.FirstMenu;
+import jpanelsandbuttons.GamePanel;
+import jpanelsandbuttons.PlayerPanel;
+import jpanelsandbuttons.StatisticsPanel;
+
 public class Main {
 
 	private JPanel contentPane;
