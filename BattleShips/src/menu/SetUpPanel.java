@@ -30,8 +30,14 @@ class SetUpPanel extends JPanel {
 
 	private JLabel activePlayerLabel;
 	
-	private Ship[] shipArray = new Ship[5];
-
+	private Ship[] shipArray;
+	
+	private JButton ship1;
+	private JButton ship2;
+	private JButton ship3;
+	private JButton ship4;
+	private JButton ship5;
+	
 	
 	private int yCoordinate;
 	private int xCoordinate;
@@ -43,6 +49,8 @@ class SetUpPanel extends JPanel {
 		contentPane = panel;
 
 		game = gameObject;
+		
+		shipArray = new Ship[5];
 
 		setOpaque(true);
 		setBackground(Color.BLACK);
@@ -52,17 +60,14 @@ class SetUpPanel extends JPanel {
 		grid = new JButton[width][length];
 		for (yCoordinate = 0; yCoordinate < length; yCoordinate++) {
 			for (xCoordinate = 0; xCoordinate < width; xCoordinate++) {
-				grid[xCoordinate][yCoordinate] = new JButton();
+				grid[xCoordinate][yCoordinate] = new GridButton(xCoordinate,yCoordinate);
 
 				grid[xCoordinate][yCoordinate]
 						.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
 								
-
-								
-						
 								  
-//								 game.getActivePlayer().setShip(ship, startPoint, dir)
+//								 game.getActivePlayer().setShip(ship, startPoint, dir);
 								 
 							}
 						});
@@ -77,18 +82,45 @@ class SetUpPanel extends JPanel {
 
 		add(gridPanel);
 
-		try {
-
-			activePlayerLabel.setText((game.getPlayerName(1)));
-
-		} catch (Exception e) {
-			System.out.println("Could not find the player");
-		}
-
 		activePlayerLabel = new JLabel("");
 		activePlayerLabel.setForeground(Color.WHITE);
 		activePlayerLabel.setBounds(250, 100, 50, 50);
 		add(activePlayerLabel);
+		
+		
+		buttonPanel = new JPanel();
+		buttonPanel.setBackground(Color.BLACK);
+		buttonPanel.setBounds(0, 400, 500, 100);
+		
+		verticalButton = new JButton("Vertical");
+		verticalButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				
+
+				
+
+			}
+		});
+
+		buttonPanel.add(verticalButton);
+		
+		horizontalButton = new JButton("Horizontal");
+		horizontalButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				
+
+				
+
+			}
+		});
+
+		buttonPanel.add(horizontalButton);
+		
+		add(buttonPanel);
+		
+		
 		
 		JButton devButton = new JButton("DevButton");
 		devButton.addActionListener(new ActionListener() {
@@ -96,7 +128,7 @@ class SetUpPanel extends JPanel {
 				
 				
 				CardLayout cardLayout = (CardLayout) contentPane.getLayout();
-				cardLayout.next(contentPane);;
+				cardLayout.next(contentPane);
 				
 			}
 		});
