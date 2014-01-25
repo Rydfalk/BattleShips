@@ -46,7 +46,6 @@ class SetUpPanel extends JPanel {
 
 		gridPanel = board.getGridPanel(this);
 		
-
 		gridPanel.setVisible(true);
 		
 		add(gridPanel);

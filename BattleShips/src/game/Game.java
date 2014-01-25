@@ -51,7 +51,7 @@ public class Game {
 
 	}
 
-	public void initialize() {
+	public void startGame() {
 		System.out.println("INITIALIZED!");
 		activePlayer = ActivePlayer.PLAYER1;
 		

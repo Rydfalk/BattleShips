@@ -147,7 +147,7 @@ class PlayerPanel extends JPanel {
 					CardLayout cardLayout = (CardLayout) contentPane
 							.getLayout();
 					cardLayout.show(contentPane, "Setup Card");
-					game.initialize();
+					game.startGame();
 				}
 
 			}

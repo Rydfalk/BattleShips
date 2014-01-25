@@ -21,7 +21,7 @@ public class Player {
 			{ "name", "varchar(16)" }, { "wins", "int" }, { "losses", "int" },
 			{ "hit_percentage", "DECIMAL(2,2)" } };
 
-	private Board board = new Board();
+	private Board board;
 
 	/******************* CONSTRUCTORS *******************/
 	public Player(String name) {
@@ -249,6 +249,10 @@ public class Player {
 
 	public Board getBoard() {
 		return board;
+	}
+	
+	public void setBoard(Board board){
+		this.board = board;
 	}
 
 	public String getName() {
