@@ -24,14 +24,13 @@ public class GamePanel extends JPanel {
 
 		game = gameObject;
 
-		gridPanel = board.getGridPanel(this);
+	
 		
 		setOpaque(true);
 		setBackground(Color.BLUE.darker().darker());
 		setLayout(null);
 		
 		
-		add(gridPanel);
 		
 		
 		JButton devButton = new JButton("DevButton");

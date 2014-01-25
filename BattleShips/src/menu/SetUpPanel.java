@@ -1,11 +1,12 @@
 package menu;
 
-import game.Board;
 import game.Game;
+import game.Ship;
 
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -16,8 +17,6 @@ import javax.swing.JPanel;
 class SetUpPanel extends JPanel {
 	
 	private Game game;
-	
-	private Board board;
 
 	private JButton[][] grid;
 
@@ -26,9 +25,16 @@ class SetUpPanel extends JPanel {
 	private JPanel gridPanel;
 
 	private JPanel buttonPanel;
+	private JButton verticalButton;
+	private JButton horizontalButton;
 
 	private JLabel activePlayerLabel;
+	
+	private Ship[] shipArray = new Ship[5];
 
+	
+	private int yCoordinate;
+	private int xCoordinate;
 	private int width = 7;
 	private int length = 7;
 
@@ -37,17 +43,38 @@ class SetUpPanel extends JPanel {
 		contentPane = panel;
 
 		game = gameObject;
-		
-		board = new Board();
 
 		setOpaque(true);
 		setBackground(Color.BLACK);
 		setLayout(null);
 
-		gridPanel = board.getGridPanel(this);
-		
-		gridPanel.setVisible(true);
-		
+		gridPanel = new JPanel(new GridLayout(width, length));
+		grid = new JButton[width][length];
+		for (yCoordinate = 0; yCoordinate < length; yCoordinate++) {
+			for (xCoordinate = 0; xCoordinate < width; xCoordinate++) {
+				grid[xCoordinate][yCoordinate] = new JButton();
+
+				grid[xCoordinate][yCoordinate]
+						.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								
+
+								
+						
+								  
+//								 game.getActivePlayer().setShip(ship, startPoint, dir)
+								 
+							}
+						});
+
+				
+				gridPanel.add(grid[xCoordinate][yCoordinate]);
+
+			}
+		}
+
+		gridPanel.setBounds(130, 150, 250, 250);
+
 		add(gridPanel);
 
 		try {
