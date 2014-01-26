@@ -26,6 +26,8 @@ class SetUpPanel extends JPanel {
 	private Game game;
 
 	private Player activePlayer;
+	
+	private GamePanel gamePanel;
 
 	private JPanel contentPane;
 
@@ -195,7 +197,6 @@ class SetUpPanel extends JPanel {
 
 			shipButtons[shipIndex].addActionListener(new ActionListener() {
 
-				private int buttonSpecificShipSize = shipSize;
 				private Ship buttonSpecificShip = shipList.get(shipIndex);
 
 				public void actionPerformed(ActionEvent e) {
@@ -235,6 +236,9 @@ class SetUpPanel extends JPanel {
 						CardLayout cardLayout = (CardLayout) contentPane
 								.getLayout();
 						cardLayout.show(contentPane, "Game Card");
+						gamePanel = new GamePanel(contentPane,game);
+						contentPane.add(gamePanel, "Game Card");
+						
 					}
 
 				}
@@ -277,7 +281,8 @@ class SetUpPanel extends JPanel {
 	 */
 	private void setShipIfPossible() {
 		if (coordinateButtonPressed == true && directionButtonPressed == true
-				&& shipButtonPressed == true && game.getActivePlayer().getPlacedShips().size() == 5) {
+				&& shipButtonPressed == true
+				&& !(game.getActivePlayer().getPlacedShips().size() == 5)) {
 
 			if (game.getActivePlayer().setShip(activeShip,
 					activeButtonCoordinate, activeDirection)) {
