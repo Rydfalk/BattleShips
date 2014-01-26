@@ -15,6 +15,9 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 class PlayerPanel extends JPanel {
+	
+	private SetUpPanel setupPanel;
+	private GamePanel gamePanel;
 
 	private JButton backButton;
 	private JButton newHumanButton;
@@ -24,6 +27,7 @@ class PlayerPanel extends JPanel {
 	private JButton deletePlayer;
 
 	private JPanel contentPane;
+
 
 	private JTextField inputField;
 
@@ -44,7 +48,7 @@ class PlayerPanel extends JPanel {
 		setOpaque(true);
 		setBackground(Color.BLUE.darker().darker());
 
-		game = new Game();
+		
 
 		backButton = new JButton("Back");
 		backButton.addActionListener(new ActionListener() {
@@ -144,10 +148,17 @@ class PlayerPanel extends JPanel {
 
 				if (numberOfPlayers == 2) {
 
+					
+					game.startGame();
+					setupPanel = new SetUpPanel(contentPane, game);
+					gamePanel = new GamePanel(contentPane,game);
+					
+					contentPane.add(setupPanel, "Setup Card");
+					contentPane.add(gamePanel, "Game Card");
 					CardLayout cardLayout = (CardLayout) contentPane
 							.getLayout();
 					cardLayout.show(contentPane, "Setup Card");
-					game.startGame();
+					
 				}
 
 			}
@@ -165,6 +176,7 @@ class PlayerPanel extends JPanel {
 				
 				CardLayout cardLayout = (CardLayout) contentPane.getLayout();
 				cardLayout.next(contentPane);;
+				
 				
 			}
 		});

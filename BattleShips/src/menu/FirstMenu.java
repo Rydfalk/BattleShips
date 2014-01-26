@@ -56,7 +56,7 @@ class FirstMenu extends JPanel {
 				
 				
 				CardLayout cardLayout = (CardLayout) contentPane.getLayout();
-				cardLayout.next(contentPane);;
+				cardLayout.next(contentPane);
 				
 			}
 		});
