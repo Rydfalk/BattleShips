@@ -109,8 +109,7 @@ public class Game {
 				return players.get(1);
 			}
 		}else{
-			Player noPlayer;
-			return noPlayer = new Player("No player");
+			return new Player("No player");
 		}
 
 	}

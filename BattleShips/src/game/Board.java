@@ -183,6 +183,10 @@ public class Board {
 	public boolean isHit(Point point) {
 		return (board[point.y][point.x] == Square.HIT);
 	}
+	
+	public boolean isMissed(Point point){
+		return (board[point.y][point.x] == Square.MISSED);
+	}
 
 	/**
 	 * Sets the given coordinates to hit
@@ -193,6 +197,16 @@ public class Board {
 	public void hitSquare(Point point) {
 		board[point.y][point.x] = Square.HIT;
 	}
+	
+	/**
+	 * Sets the given coordinates to missed
+	 * 
+	 * @param point
+	 */
+	public void missSquare(Point point){
+		board[point.y][point.x] = Square.MISSED;
+	}
+	
 
 	/******************* GETTERS AND SETTERS *******************/
 	public int getBoardWidth() {
