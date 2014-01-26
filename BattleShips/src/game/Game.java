@@ -1,16 +1,19 @@
 package game;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Game {
-
 
 	private ArrayList<Player> players = new ArrayList<Player>(2);
 
 	private ActivePlayer activePlayer;
-	
-	private enum ActivePlayer{
+
+	private List<Ship> shipList;
+
+	private enum ActivePlayer {
 		PLAYER1(), PLAYER2();
+
 	}
 
 	public Game() {
@@ -35,15 +38,7 @@ public class Game {
 
 	}
 
-	public Player getActivePlayer() {
-		
-		if(activePlayer==ActivePlayer.PLAYER1){
-			return players.get(0);
-		}else{
-			return players.get(1);
-		}
-
-	}
+	
 
 	public String getPlayerName(int playerNumber) {
 
@@ -53,8 +48,9 @@ public class Game {
 
 	public void startGame() {
 		System.out.println("INITIALIZED!");
-		activePlayer = ActivePlayer.PLAYER1;
 		
+		activePlayer = ActivePlayer.PLAYER1;
+		System.out.println("Active Player:" + getActivePlayer().getName());
 
 	}
 
@@ -82,28 +78,49 @@ public class Game {
 
 	public String deletePlayer(String name) {
 		String returnString;
-		
-		if(players.isEmpty()){
+
+		if (players.isEmpty()) {
 			return "You must add a player to the list in order to delete it";
 		}
-		
-		if(players.get(0).getName().equals(name)){
 
-			returnString = "Player " + players.get(0).getName()+ " was deleted";
+		if (players.get(0).getName().equals(name)) {
+
+			returnString = "Player " + players.get(0).getName()
+					+ " was deleted";
 			players.get(0).deletePlayer();
 			return returnString;
-		}else if(players.get(1).getName().equals(name)){
-			returnString = "Player " + players.get(1).getName()+ " was deleted";
+		} else if (players.get(1).getName().equals(name)) {
+			returnString = "Player " + players.get(1).getName()
+					+ " was deleted";
 			players.get(1).deletePlayer();
 			return returnString;
-		}else{
+		} else {
 			return "Could not delete player";
 		}
-		
+
+	}
+	
+	public Player getActivePlayer() {
+
+		if (!players.isEmpty()) {
+			if (activePlayer == ActivePlayer.PLAYER1) {
+				return players.get(0);
+			} else {
+				return players.get(1);
+			}
+		}else{
+			Player noPlayer;
+			return noPlayer = new Player("No player");
+		}
+
+	}
+	
+	public void nextActivePlayer(){
+		if(activePlayer == ActivePlayer.PLAYER1){
+			activePlayer = ActivePlayer.PLAYER2;
+		}else{
+			activePlayer = ActivePlayer.PLAYER1;
+		}
 	}
 
-	public void setCoordinates(int x, int y) {
-		// TODO Auto-generated method stub
-		
-	}
 }

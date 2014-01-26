@@ -14,6 +14,9 @@ public class Board {
 	protected int boardWidth;
 	private Square[][] board;
 	
+	private Ship[] placedShips;
+	private Ship[] destroyedShips;
+	
 	private JPanel gridPanel;
 	private JButton[][] grid;
 
