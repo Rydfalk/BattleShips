@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 class PlayerPanel extends JPanel {
 	
 	private SetUpPanel setupPanel;
-	private GamePanel gamePanel;
+	
 
 	private JButton backButton;
 	private JButton newHumanButton;
@@ -148,13 +148,12 @@ class PlayerPanel extends JPanel {
 
 				if (numberOfPlayers == 2) {
 
-					
-					game.startGame();
 					setupPanel = new SetUpPanel(contentPane, game);
-					gamePanel = new GamePanel(contentPane,game);
+					
 					
 					contentPane.add(setupPanel, "Setup Card");
-					contentPane.add(gamePanel, "Game Card");
+					
+					
 					CardLayout cardLayout = (CardLayout) contentPane
 							.getLayout();
 					cardLayout.show(contentPane, "Setup Card");

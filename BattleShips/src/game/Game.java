@@ -18,6 +18,7 @@ public class Game {
 
 	public Game() {
 
+		activePlayer = ActivePlayer.PLAYER1;
 	}
 
 	public void addNewHumanPlayer(String name) {
@@ -46,18 +47,7 @@ public class Game {
 
 	}
 
-	public void startGame() {
-		System.out.println("INITIALIZED!");
-		
-		activePlayer = ActivePlayer.PLAYER1;
-		System.out.println("Active Player:" + getActivePlayer().getName());
 
-	}
-
-	private boolean gameOver() {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	public String removeLastPlayer() {
 		String returnString;
