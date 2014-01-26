@@ -182,7 +182,6 @@ public class Player {
 			for (int i = 0; i < ship.getSize(); i++) {
 
 				if (!board.isValidToOccupy(startPoint.x, startPoint.y - i)) {
-					System.out.println("CANT PUT SHIP THERE");
 					return false;
 				}
 				tempBoard.occupySquare(startPoint.x, startPoint.y - i);
@@ -202,7 +201,6 @@ public class Player {
 			for (int i = 0; i < ship.getSize(); i++) {
 
 				if (!board.isValidToOccupy(startPoint.x + i, startPoint.y)) {
-					System.out.println("CANT PUT SHIP THERE");
 					return false;
 				}
 				tempBoard.occupySquare(startPoint.x + i, startPoint.y);

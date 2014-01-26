@@ -18,7 +18,10 @@ class PlayerPanel extends JPanel {
 	
 	private SetUpPanel setupPanel;
 	
-
+	private JPanel playerButtonsPanel;
+	private JPanel textFieldPanel;
+	private JPanel gameButtonsPanel;
+	
 	private JButton backButton;
 	private JButton newHumanButton;
 	private JButton newAIButton;
@@ -47,20 +50,10 @@ class PlayerPanel extends JPanel {
 
 		setOpaque(true);
 		setBackground(Color.BLUE.darker().darker());
-
 		
-
-		backButton = new JButton("Back");
-		backButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				CardLayout cardLayout = (CardLayout) contentPane.getLayout();
-				cardLayout.show(contentPane, "First Menu Card");
-
-			}
-		});
-
-		add(backButton);
-
+		playerButtonsPanel = new JPanel();
+		playerButtonsPanel.setBackground(Color.BLUE.darker().darker());
+		
 		newHumanButton = new JButton("New Player");
 		newHumanButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -85,7 +78,7 @@ class PlayerPanel extends JPanel {
 			}
 		});
 
-		add(newHumanButton);
+		playerButtonsPanel.add(newHumanButton);
 
 		newAIButton = new JButton("New AI");
 		newAIButton.setEnabled(false); // Not usable until we have AI
@@ -110,7 +103,7 @@ class PlayerPanel extends JPanel {
 			}
 		});
 
-		add(newAIButton);
+		playerButtonsPanel.add(newAIButton);
 
 		removeLastPlayer = new JButton("Remove Player");
 		removeLastPlayer.addActionListener(new ActionListener() {
@@ -120,7 +113,7 @@ class PlayerPanel extends JPanel {
 
 			}
 		});
-		add(removeLastPlayer);
+		playerButtonsPanel.add(removeLastPlayer);
 
 		deletePlayer = new JButton("Delete Player");
 		deletePlayer.addActionListener(new ActionListener() {
@@ -131,16 +124,43 @@ class PlayerPanel extends JPanel {
 
 			}
 		});
-		add(deletePlayer);
-
-		playerDisplay = new JTextArea(3, 20);
+		playerButtonsPanel.add(deletePlayer);
+		
+		
+		
+		
+		
+		textFieldPanel = new JPanel();
+		textFieldPanel.setSize(500,300);
+		textFieldPanel.setBackground(Color.BLUE.darker().darker());
+		
+		statusMessagesText = new JLabel("Add new players!");
+		statusMessagesText.setForeground(Color.WHITE);
+		textFieldPanel.add(statusMessagesText);
+		
+		playerDisplay = new JTextArea(3, 10);
 		playerDisplay.setEditable(false);
 
-		add(playerDisplay);
+		textFieldPanel.add(playerDisplay);
 
-		inputField = new JTextField(20);
+		inputField = new JTextField(15);
 
-		add(inputField);
+		textFieldPanel.add(inputField);
+		
+		
+		gameButtonsPanel = new JPanel();
+		gameButtonsPanel.setBackground(Color.BLUE.darker().darker());
+		
+		backButton = new JButton("Back");
+		backButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CardLayout cardLayout = (CardLayout) contentPane.getLayout();
+				cardLayout.show(contentPane, "First Menu Card");
+
+			}
+		});
+
+		gameButtonsPanel.add(backButton);
 
 		startGameButton = new JButton("Start Game");
 		startGameButton.addActionListener(new ActionListener() {
@@ -162,11 +182,9 @@ class PlayerPanel extends JPanel {
 
 			}
 		});
-		add(startGameButton);
+		gameButtonsPanel.add(startGameButton);
 
-		statusMessagesText = new JLabel("Add new players!");
-		statusMessagesText.setForeground(Color.WHITE);
-		add(statusMessagesText);
+		
 		
 		JButton devButton = new JButton("DevButton");
 		devButton.addActionListener(new ActionListener() {
@@ -179,7 +197,12 @@ class PlayerPanel extends JPanel {
 				
 			}
 		});
-		add(devButton);
+		gameButtonsPanel.add(devButton);
+		
+		add(playerButtonsPanel);
+		add(textFieldPanel);
+		add(gameButtonsPanel);
+		
 
 	}
 
