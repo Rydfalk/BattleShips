@@ -3,6 +3,8 @@ package game;
 import java.awt.Point;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import Database.DatabaseObject;
 
@@ -13,7 +15,9 @@ public class Player {
 	private int wins, losses, hitPercentage;
 	private DatabaseObject dbo;
 	private String databaseTableName = "statistics";
+	private List<Ship> placedShips;
 
+	
 	/**
 	 * The columns and types for the database table
 	 */
@@ -40,6 +44,8 @@ public class Player {
 		} else {
 			createPlayer(name);
 		}
+		
+		placedShips = new ArrayList<Ship>();
 
 	}
 
@@ -228,6 +234,7 @@ public class Player {
 				}
 			}
 		}
+		placedShips.add(ship);
 		return true;
 	}
 
@@ -264,5 +271,15 @@ public class Player {
 	public void setWins(int wins) {
 		this.wins = wins;
 	}
+	
+	public List<Ship> getPlacedShips() {
+		return placedShips;
+	}
+
+	public void setPlacedShip(Ship placedShip) {
+		placedShips.add(placedShip);
+		
+	}
+
 
 }

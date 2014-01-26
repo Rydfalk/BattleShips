@@ -39,16 +39,16 @@ class SetUpPanel extends JPanel {
 	private int width = 7;
 
 	/*
-	 * Variables for the button panel
+	 * Variables for the button panels
 	 */
 	private JPanel buttonPanel;
-	private JPanel southButtonPane;
-	private JPanel northButtonPane;
+	private JPanel shipButtonPane;
+	private JPanel doneButtonPane;
+	private JPanel directionButtonPane;
 	private JButton verticalButton;
 	private JButton horizontalButton;
 	private JButton[] shipButtons;
-	
-
+	private JButton doneButton;
 	/*
 	 * Labels to tell messages
 	 */
@@ -63,11 +63,11 @@ class SetUpPanel extends JPanel {
 	private List<Ship> shipList;
 	private int shipSize;
 	private int shipIndex;
-	
+
 	private Point activeButtonCoordinate;
 	private Direction activeDirection;
 	private Ship activeShip;
-	
+
 	private boolean player1Done = false;
 	private boolean player2Done = false;
 
@@ -80,7 +80,7 @@ class SetUpPanel extends JPanel {
 		contentPane = panel;
 
 		game = gameObject;
-		
+
 		activePlayer = game.getActivePlayer();
 		activeBoard = activePlayer.getBoard();
 
@@ -119,7 +119,7 @@ class SetUpPanel extends JPanel {
 			}
 		}
 
-		gridPanel.setBounds(130, 150, 250, 250);
+		gridPanel.setBounds(130, 100, 250, 250);
 
 		add(gridPanel);
 
@@ -128,12 +128,12 @@ class SetUpPanel extends JPanel {
 		 */
 		activePlayerLabel = new JLabel(activePlayer.getName());
 		activePlayerLabel.setForeground(Color.WHITE);
-		activePlayerLabel.setBounds(130, 100, 100, 50);
+		activePlayerLabel.setBounds(130, 50, 100, 50);
 		add(activePlayerLabel);
 
 		statusMessages = new JLabel("Place your ships!");
 		statusMessages.setForeground(Color.WHITE);
-		statusMessages.setBounds(230, 100, 100, 50);
+		statusMessages.setBounds(230, 50, 100, 50);
 		add(statusMessages);
 
 		/*
@@ -142,13 +142,11 @@ class SetUpPanel extends JPanel {
 
 		buttonPanel = new JPanel();
 		buttonPanel.setBackground(Color.BLACK);
-		buttonPanel.setBounds(0, 400, 500, 100);
+		buttonPanel.setBounds(0, 350, 500, 100);
 		buttonPanel.setLayout(new BorderLayout());
 
-		southButtonPane = new JPanel();
-		southButtonPane.setBackground(Color.BLACK);
-		northButtonPane = new JPanel();
-		northButtonPane.setBackground(Color.BLACK);
+		directionButtonPane = new JPanel();
+		directionButtonPane.setBackground(Color.BLACK);
 
 		/*
 		 * Setting up direction buttons
@@ -164,7 +162,7 @@ class SetUpPanel extends JPanel {
 			}
 		});
 
-		northButtonPane.add(verticalButton);
+		directionButtonPane.add(verticalButton);
 
 		horizontalButton = new JButton("Horizontal");
 		horizontalButton.addActionListener(new ActionListener() {
@@ -177,11 +175,14 @@ class SetUpPanel extends JPanel {
 			}
 		});
 
-		northButtonPane.add(horizontalButton);
+		directionButtonPane.add(horizontalButton);
 
 		/*
-		 * Setting up Ship buttons
+		 * Setting up Ship buttons and their panel
 		 */
+
+		shipButtonPane = new JPanel();
+		shipButtonPane.setBackground(Color.BLACK);
 
 		shipList = new ArrayList<Ship>();
 		shipButtons = new JButton[5];
@@ -209,11 +210,42 @@ class SetUpPanel extends JPanel {
 		}
 
 		for (JButton button : shipButtons) {
-			southButtonPane.add(button);
+			shipButtonPane.add(button);
 		}
 
-		buttonPanel.add(northButtonPane, BorderLayout.NORTH);
-		buttonPanel.add(southButtonPane, BorderLayout.CENTER);
+		doneButtonPane = new JPanel();
+		doneButtonPane.setBackground(Color.BLACK);
+
+		doneButton = new JButton("Done");
+		doneButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				if (activePlayer.getPlacedShips().size() == 5) {
+
+					if (player1Done == false) {
+						player1Done = true;
+
+						game.nextActivePlayer();
+						activePlayer = game.getActivePlayer();
+						activeBoard = activePlayer.getBoard();
+						updateLabels();
+						updateGridColors();
+
+					} else {
+						CardLayout cardLayout = (CardLayout) contentPane
+								.getLayout();
+						cardLayout.show(contentPane, "Game Card");
+					}
+
+				}
+			}
+		});
+
+		doneButtonPane.add(doneButton);
+
+		buttonPanel.add(doneButtonPane, BorderLayout.CENTER);
+		buttonPanel.add(directionButtonPane, BorderLayout.NORTH);
+		buttonPanel.add(shipButtonPane, BorderLayout.SOUTH);
 		add(buttonPanel);
 
 		/*
@@ -245,7 +277,7 @@ class SetUpPanel extends JPanel {
 	 */
 	private void setShipIfPossible() {
 		if (coordinateButtonPressed == true && directionButtonPressed == true
-				&& shipButtonPressed == true) {
+				&& shipButtonPressed == true && game.getActivePlayer().getPlacedShips().size() == 5) {
 
 			if (game.getActivePlayer().setShip(activeShip,
 					activeButtonCoordinate, activeDirection)) {
@@ -256,22 +288,15 @@ class SetUpPanel extends JPanel {
 				/*
 				 * UNFINISHED!
 				 * 
-				 * TODO: Check who is active player, check if both players are done.
+				 * TODO: Check who is active player, check if both players are
+				 * done.
 				 */
 				updateGridColors();
-				if(shipList.size() == 5){
-					
-					game.nextActivePlayer();
-					activePlayer = game.getActivePlayer();
-					activeBoard = activePlayer.getBoard();
-				}
-				
-				
+
 			}
-			
 
 		}
-		
+
 		System.out.println("NOT POSSIBLE!");
 
 	}
@@ -280,12 +305,15 @@ class SetUpPanel extends JPanel {
 	 * If a specific position is occupied it will be black
 	 */
 	private void updateGridColors() {
+
 		activeBoard = activePlayer.getBoard();
 
 		for (int y = 0; y < width; y++) {
 			for (int x = 0; x < width; x++) {
 				if (activeBoard.isOccupied(x, y)) {
 					grid[x][y].setBackground(Color.BLACK);
+				} else {
+					grid[x][y].setBackground(null);
 				}
 			}
 		}
@@ -293,7 +321,7 @@ class SetUpPanel extends JPanel {
 	}
 
 	public void updateLabels() {
-		activePlayerLabel = new JLabel(activePlayer.getName());
+		activePlayerLabel.setText(activePlayer.getName());
 	}
 
 	@Override
