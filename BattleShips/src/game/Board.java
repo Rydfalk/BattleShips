@@ -71,7 +71,7 @@ public class Board {
 	 */
 	public boolean isValidToOccupy(int x, int y) {
 		Point point = new Point(x, y);
-		if (!isOccupied(point)) {
+		if (isValidSquare(point) && !isOccupied(point)) {
 			// Loops through all adjecent tiles
 			for (int i = -1; i < 2; i++) {
 				for (int j = -1; j < 2; j++) {
