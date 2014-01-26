@@ -210,6 +210,8 @@ class SetUpPanel extends JPanel {
 
 		}
 
+
+		
 		for (JButton button : shipButtons) {
 			shipButtonPane.add(button);
 		}
@@ -238,6 +240,7 @@ class SetUpPanel extends JPanel {
 						cardLayout.show(contentPane, "Game Card");
 						gamePanel = new GamePanel(contentPane,game);
 						contentPane.add(gamePanel, "Game Card");
+						 
 						
 					}
 
@@ -260,10 +263,41 @@ class SetUpPanel extends JPanel {
 		JButton devButton = new JButton("DevButton");
 		devButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
-				CardLayout cardLayout = (CardLayout) contentPane.getLayout();
+				
+				Player player1 = game.getActivePlayer();
+				game.nextActivePlayer();
+				Player player2 = game.getActivePlayer();
+				game.nextActivePlayer();
+				
+				if(!(player1.setShip(new Ship(1), new Point(0,1), Direction.RIGHT) ||
+				player1.setShip(new Ship(1), new Point(0,3), Direction.RIGHT)||
+				player1.setShip(new Ship(1), new Point(2,1), Direction.RIGHT)||
+				player1.setShip(new Ship(1), new Point(2,3), Direction.RIGHT)||
+				player1.setShip(new Ship(1), new Point(4,3), Direction.RIGHT))){
+					System.out.println("Nepp1");
+				}
+				
+				if(!(player2.setShip(new Ship(1), new Point(0,1), Direction.RIGHT) ||
+				player2.setShip(new Ship(1), new Point(0,3), Direction.RIGHT)||
+				player2.setShip(new Ship(1), new Point(2,1), Direction.RIGHT)||
+				player2.setShip(new Ship(1), new Point(2,3), Direction.RIGHT)||
+				player2.setShip(new Ship(1), new Point(4,3), Direction.RIGHT))){
+					System.out.println("Nepp2");
+				}
+				
+				//TABORT
+				CardLayout cardLayout = (CardLayout) contentPane
+						.getLayout();
+				cardLayout.show(contentPane, "Game Card");
+				gamePanel = new GamePanel(contentPane,game);
+				contentPane.add(gamePanel, "Game Card");
+				
+				
+				cardLayout = (CardLayout) contentPane.getLayout();
 				cardLayout.next(contentPane);
 
+				
+				
 			}
 		});
 
