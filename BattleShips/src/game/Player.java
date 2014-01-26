@@ -106,26 +106,24 @@ public class Player {
 	}
 
 	/**
-	 * Asks the player for a move, checks if its valid. If it's not valid we'll
-	 * ask again. If it's valid we perform the move.
+	 * The method gets the opponent object and hitPoint We then check if the
+	 * square is occupied, if it's occupied we hit it (changing it's state to
+	 * hit) is it not occupied we set it's state to missed.
+	 * 
+	 * Notice: We know that the square is not already missed since that's been
+	 * taken care of earlier.
 	 * 
 	 * @param opponent
 	 *            : Player object
 	 */
-	public void makeMove(Player opponent) {
-		Board opponentsBoard = new Board();
-		Point hitPoint = new Point(0, 0);
-		boolean exit = false;
-		while (!exit) {
-			/*
-			 * TODO:
-			 * 
-			 * Ask player to make move
-			 */
-			exit = (!opponentsBoard.isHit(hitPoint));
+	public void makeMove(Player opponent, Point hitPoint) {
+		Board opponentsBoard = opponent.getBoard();
 
+		if (opponentsBoard.isOccupied(hitPoint)) {
+			opponentsBoard.hitSquare(hitPoint);
+		} else {
+			opponentsBoard.missSquare(hitPoint);
 		}
-		opponentsBoard.hitSquare(hitPoint);
 
 	}
 
@@ -208,7 +206,7 @@ public class Player {
 		case LEFT:
 			for (int i = 0; i < ship.getSize(); i++) {
 				if (!board.isValidToOccupy(startPoint.x - i, startPoint.y)) {
-					
+
 					return false;
 				}
 				tempBoard.occupySquare(startPoint.x - i, startPoint.y);
@@ -244,8 +242,7 @@ public class Player {
 
 		dbo.closeConnection();
 	}
-	
-	
+
 	/******************* GETTERS AND SETTERS *******************/
 
 	public Board getBoard() {
@@ -269,4 +266,3 @@ public class Player {
 	}
 
 }
-

@@ -16,7 +16,7 @@ public class SetupGridButton extends JButton implements ActionListener{
 	
 	public SetupGridButton(int x, int y){
 		super();
-	
+		
 		returnPoint = new Point(x,y);
 		
 	}

@@ -2,7 +2,7 @@ package game;
 
 public enum Square {
 
-	EMPTY("~"), OCCUPIED("[]"), HIT("X"), MISS(" ");
+	EMPTY("~"), OCCUPIED("[]"), HIT("X"), MISSED(" ");
 
 	private String status;
 
