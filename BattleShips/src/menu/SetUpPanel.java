@@ -268,6 +268,7 @@ class SetUpPanel extends JPanel {
 								.getLayout();
 						cardLayout.show(contentPane, "Game Card");
 
+
 					}
 
 				}

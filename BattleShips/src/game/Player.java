@@ -16,6 +16,8 @@ public class Player {
 	private DatabaseObject dbo;
 	private String databaseTableName = "statistics";
 	private List<Ship> placedShips;
+	
+	public boolean hasWon = false;
 
 	
 	/**
@@ -131,6 +133,18 @@ public class Player {
 			opponentsBoard.missSquare(hitPoint);
 		}
 
+		int i = 0;
+		for (int y = 0; y < opponentsBoard.boardWidth; y++) {
+			for (int x = 0; x < opponentsBoard.boardWidth; x++) {
+				if (!opponentsBoard.isHit(new Point(x, y))) {
+					i++;
+				}
+			}
+		}
+		if(i++ == 15){
+			hasWon = true;
+		}
+		
 	}
 
 	/**
