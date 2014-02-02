@@ -63,10 +63,12 @@ public class GamePanel extends JPanel {
 		devButton.setBounds(400, 400, 20, 20);
 		add(devButton);
 
-		player1 = gameObj.getActivePlayer();
-		gameObj.nextActivePlayer();
 		player2 = gameObj.getActivePlayer();
+		gameObj.nextActivePlayer();
+		player1 = gameObj.getActivePlayer();
 
+
+		
 		playersTurnMessage = new JLabel("It's " + player1.getName() + "'s turn");
 		playersTurnMessage.setForeground(Color.WHITE);
 		playersTurnMessage.setBounds(130, 50, 100, 50);
@@ -84,14 +86,13 @@ public class GamePanel extends JPanel {
 						grid[xCoordinate][yCoordinate].getCoordinates())) {
 
 					grid[xCoordinate][yCoordinate].setBackground(Color.RED);
-					grid[xCoordinate][yCoordinate].setEnabled(false);
+
 				}
 				// If the square is missed it should be blue
 				else if (player2.getBoard().isMissed(
 						grid[xCoordinate][yCoordinate].getCoordinates())) {
 
 					grid[xCoordinate][yCoordinate].setBackground(Color.BLUE);
-					grid[xCoordinate][yCoordinate].setEnabled(false);
 
 				}
 				// if the square is nether hit nor missed we add a
@@ -104,6 +105,7 @@ public class GamePanel extends JPanel {
 										yCoordinate);
 
 								public void actionPerformed(ActionEvent e) {
+
 									// Register the move and change the status
 									// of the klicked square
 									player1.makeMove(player2, coordinate);
@@ -119,9 +121,10 @@ public class GamePanel extends JPanel {
 
 			}
 		}
-
 		gridPanel.setBounds(130, 150, 250, 250);
 		add(gridPanel);
+		updateBoard(player2, player1);
+		allButtonsEnabled(true);
 
 		JButton doneButton = new JButton("Done");
 		doneButton.addActionListener(new ActionListener() {
@@ -144,7 +147,9 @@ public class GamePanel extends JPanel {
 	private void updateBoard(Player player1, Player player2) {
 
 		Board activeBoard = player1.getBoard();
-
+		
+		playersTurnMessage.setText("It's " + player2.getName() + "'s turn");
+		
 		for (int y = 0; y < width; y++) {
 			for (int x = 0; x < width; x++) {
 				if (activeBoard.isHit(new Point(x, y))) {
@@ -159,15 +164,16 @@ public class GamePanel extends JPanel {
 	}
 
 	private void allButtonsEnabled(boolean b) {
+		Board activeBoard = player2.getBoard();
 		for (int y = 0; y < width; y++) {
 			for (int x = 0; x < width; x++) {
-				if (board.isHit(
-						grid[x][y].getCoordinates())) {
-
-					grid[x][y].setBackground(Color.RED);
+				if (!activeBoard.isHit(new Point(x, y))
+						&& !activeBoard.isMissed(new Point(x, y))) {
+					grid[x][y].setEnabled(b);
+				}else{
 					grid[x][y].setEnabled(false);
 				}
-				grid[x][y].setEnabled(b);
+
 			}
 		}
 	}

@@ -262,11 +262,12 @@ class SetUpPanel extends JPanel {
 						enableGridButtons();
 
 					} else {
+						gamePanel = new GamePanel(contentPane, game);
+						contentPane.add(gamePanel, "Game Card");
 						CardLayout cardLayout = (CardLayout) contentPane
 								.getLayout();
 						cardLayout.show(contentPane, "Game Card");
-						gamePanel = new GamePanel(contentPane, game);
-						contentPane.add(gamePanel, "Game Card");
+						
 
 					}
 
