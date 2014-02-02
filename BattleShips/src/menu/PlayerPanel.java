@@ -57,6 +57,10 @@ class PlayerPanel extends JPanel {
 		newHumanButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
+				
+				if(!(game.getPlayerName(0) == inputField.getText())){
+					
+				
 				if (inputField.getText().length() > 0) {
 
 					game.addNewHumanPlayer(inputField.getText().trim());
@@ -76,6 +80,7 @@ class PlayerPanel extends JPanel {
 					statusMessagesText.setText("You must write a name");
 				}
 
+			}
 			}
 
 		});

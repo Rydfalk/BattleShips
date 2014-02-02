@@ -392,6 +392,11 @@ class SetUpPanel extends JPanel {
 		}
 	}
 
+	
+	/**
+	 * Sets all buttons that you may not put a ship in to false
+	 * so you can't press them.
+	 */
 	private void disableGridButtons() {
 
 		activeBoard = activePlayer.getBoard();
@@ -406,6 +411,9 @@ class SetUpPanel extends JPanel {
 
 	}
 
+	/**
+	 * Enables all gridbuttons.
+	 */
 	private void enableGridButtons() {
 
 		activeBoard = activePlayer.getBoard();
@@ -439,10 +447,16 @@ class SetUpPanel extends JPanel {
 
 	}
 
+	/**
+	 * Updates the label so it shows the active players name
+	 */
 	public void updateLabels() {
 		activePlayerLabel.setText(activePlayer.getName());
 	}
 
+	/**
+	 * Sets the color of the active buttons to the default color
+	 */
 	public void resetButtonColors() {
 
 		activeDirectionButton.setBackground(UIManager
