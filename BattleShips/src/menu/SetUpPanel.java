@@ -205,14 +205,14 @@ class SetUpPanel extends JPanel {
 
 		shipList = new ArrayList<Ship>();
 		shipButtons = new JButton[5];
+		
+		//For each ship we want, in this case 5
 		for (shipIndex = 0; shipIndex < 5; shipIndex++) {
+			
 			shipSize = shipIndex + 1;
-
 			shipList.add(new Ship(shipSize));
-
 			shipButtons[shipIndex] = new JButton(shipSize + " Ship");
 			shipButtons[shipIndex].setOpaque(true);
-
 			shipButtons[shipIndex].addActionListener(new ActionListener() {
 
 				private Ship buttonSpecificShip = shipList.get(shipIndex);
