@@ -45,7 +45,7 @@ public class DatabaseObject {
 	 */
 	public DatabaseObject(){
 		openConnection("Battleships.db");
-
+		
 		createStmt();
 	}
 	

@@ -114,6 +114,7 @@ class PlayerPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 
 				statusMessagesText.setText(game.removeLastPlayer());
+				numberOfPlayers--;
 				refreshPlayerDisplay();
 				newHumanButton.setEnabled(true);
 //				newAIButton.setEnabled(true);
@@ -128,6 +129,7 @@ class PlayerPanel extends JPanel {
 
 				statusMessagesText.setText(game.deletePlayer(inputField
 						.getText()));
+				numberOfPlayers--;
 				refreshPlayerDisplay();
 				newHumanButton.setEnabled(true);
 //				newAIButton.setEnabled(true);
