@@ -229,6 +229,8 @@ class PlayerPanel extends JPanel {
 			if(names.length == 2){
 			playerDisplay.append(names[1]);
 			}
+		}else{
+			playerDisplay.append("");
 		}
 	}
 
