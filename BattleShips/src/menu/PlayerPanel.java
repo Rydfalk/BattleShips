@@ -15,13 +15,13 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 class PlayerPanel extends JPanel {
-	
+
 	private SetUpPanel setupPanel;
-	
+
 	private JPanel playerButtonsPanel;
 	private JPanel textFieldPanel;
 	private JPanel gameButtonsPanel;
-	
+
 	private JButton backButton;
 	private JButton newHumanButton;
 	private JButton newAIButton;
@@ -30,7 +30,6 @@ class PlayerPanel extends JPanel {
 	private JButton deletePlayer;
 
 	private JPanel contentPane;
-
 
 	private JTextField inputField;
 
@@ -50,10 +49,10 @@ class PlayerPanel extends JPanel {
 
 		setOpaque(true);
 		setBackground(Color.BLUE.darker().darker());
-		
+
 		playerButtonsPanel = new JPanel();
 		playerButtonsPanel.setBackground(Color.BLUE.darker().darker());
-		
+
 		newHumanButton = new JButton("New Player");
 		newHumanButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -61,7 +60,7 @@ class PlayerPanel extends JPanel {
 				if (inputField.getText().length() > 0) {
 
 					game.addNewHumanPlayer(inputField.getText().trim());
-					playerDisplay.append(inputField.getText() + "\n");
+
 					numberOfPlayers++;
 
 					if (numberOfPlayers == 2) {
@@ -71,11 +70,14 @@ class PlayerPanel extends JPanel {
 						statusMessagesText.setText("Start Game!");
 
 					}
+
+					refreshPlayerDisplay();
 				} else {
 					statusMessagesText.setText("You must write a name");
 				}
 
 			}
+
 		});
 
 		playerButtonsPanel.add(newHumanButton);
@@ -100,6 +102,8 @@ class PlayerPanel extends JPanel {
 
 				}
 
+				refreshPlayerDisplay();
+
 			}
 		});
 
@@ -110,6 +114,9 @@ class PlayerPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 
 				statusMessagesText.setText(game.removeLastPlayer());
+				refreshPlayerDisplay();
+				newHumanButton.setEnabled(true);
+//				newAIButton.setEnabled(true);
 
 			}
 		});
@@ -121,23 +128,23 @@ class PlayerPanel extends JPanel {
 
 				statusMessagesText.setText(game.deletePlayer(inputField
 						.getText()));
+				refreshPlayerDisplay();
+				newHumanButton.setEnabled(true);
+//				newAIButton.setEnabled(true);
 
 			}
 		});
 		playerButtonsPanel.add(deletePlayer);
-		
-		
-		
-		
-		
+
 		textFieldPanel = new JPanel();
-		textFieldPanel.setSize(500,300);
+		textFieldPanel.setSize(500, 300);
 		textFieldPanel.setBackground(Color.BLUE.darker().darker());
-		
+
 		statusMessagesText = new JLabel("Add new players!");
+		statusMessagesText.setSize(20, 20);
 		statusMessagesText.setForeground(Color.WHITE);
 		textFieldPanel.add(statusMessagesText);
-		
+
 		playerDisplay = new JTextArea(3, 10);
 		playerDisplay.setEditable(false);
 
@@ -146,16 +153,19 @@ class PlayerPanel extends JPanel {
 		inputField = new JTextField(15);
 
 		textFieldPanel.add(inputField);
-		
-		
+
 		gameButtonsPanel = new JPanel();
 		gameButtonsPanel.setBackground(Color.BLUE.darker().darker());
-		
+
 		backButton = new JButton("Back");
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
 				CardLayout cardLayout = (CardLayout) contentPane.getLayout();
 				cardLayout.show(contentPane, "First Menu Card");
+
+				game.removeLastPlayer();
+				game.removeLastPlayer();
 
 			}
 		});
@@ -169,41 +179,50 @@ class PlayerPanel extends JPanel {
 				if (numberOfPlayers == 2) {
 
 					setupPanel = new SetUpPanel(contentPane, game);
-					
-					
+
 					contentPane.add(setupPanel, "Setup Card");
-					
-					
+
 					CardLayout cardLayout = (CardLayout) contentPane
 							.getLayout();
 					cardLayout.show(contentPane, "Setup Card");
-					
+
 				}
 
 			}
 		});
 		gameButtonsPanel.add(startGameButton);
 
-		
-		
 		JButton devButton = new JButton("DevButton");
 		devButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				
+
 				CardLayout cardLayout = (CardLayout) contentPane.getLayout();
-				cardLayout.next(contentPane);;
-				
-				
+				cardLayout.next(contentPane);
+				;
+
 			}
 		});
 		gameButtonsPanel.add(devButton);
-		
+
 		add(playerButtonsPanel);
 		add(textFieldPanel);
 		add(gameButtonsPanel);
-		
 
+	}
+
+	private void refreshPlayerDisplay() {
+		playerDisplay.setText("");
+		
+		String[] names = new String[2];
+		names = game.getPlayerNames();
+		
+		
+		if (names.length > 0) {
+			playerDisplay.append(names[0] + "\r\n");
+			if(names.length == 2){
+			playerDisplay.append(names[1]);
+			}
+		}
 	}
 
 	@Override

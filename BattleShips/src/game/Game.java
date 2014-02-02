@@ -39,15 +39,11 @@ public class Game {
 
 	}
 
-	
-
 	public String getPlayerName(int playerNumber) {
 
 		return players.get(playerNumber - 1).getName();
 
 	}
-
-
 
 	public String removeLastPlayer() {
 		String returnString;
@@ -70,7 +66,7 @@ public class Game {
 		String returnString;
 
 		if (players.isEmpty()) {
-			return "You must add a player to the list in order to delete it";
+			return "Add the player to the list first";
 		}
 
 		if (players.get(0).getName().equals(name)) {
@@ -78,18 +74,20 @@ public class Game {
 			returnString = "Player " + players.get(0).getName()
 					+ " was deleted";
 			players.get(0).deletePlayer();
+			players.remove(0);
 			return returnString;
 		} else if (players.get(1).getName().equals(name)) {
 			returnString = "Player " + players.get(1).getName()
 					+ " was deleted";
 			players.get(1).deletePlayer();
+			players.remove(1);
 			return returnString;
 		} else {
 			return "Could not delete player";
 		}
 
 	}
-	
+
 	public Player getActivePlayer() {
 
 		if (!players.isEmpty()) {
@@ -98,18 +96,33 @@ public class Game {
 			} else {
 				return players.get(1);
 			}
-		}else{
+		} else {
 			return new Player("No player");
 		}
 
 	}
-	
-	public void nextActivePlayer(){
-		if(activePlayer == ActivePlayer.PLAYER1){
+
+	public void nextActivePlayer() {
+		if (activePlayer == ActivePlayer.PLAYER1) {
 			activePlayer = ActivePlayer.PLAYER2;
-		}else{
+		} else {
 			activePlayer = ActivePlayer.PLAYER1;
 		}
+	}
+
+	public String[] getPlayerNames() {
+		String[] names = new String[2];
+		
+		int index = 0;
+
+		if (!players.isEmpty()) {
+			for (Player player : players) {
+				names[index] = player.getName();
+				index++;
+			}
+		}
+		return names;
+
 	}
 
 }
