@@ -32,12 +32,6 @@ public class Game {
 
 	}
 
-	public void addNewAIPlayer(String text) {
-		/*
-		 * TODO: Add a create AI player constructor or something
-		 */
-
-	}
 
 	public String getPlayerName(int playerNumber) {
 
@@ -124,5 +118,6 @@ public class Game {
 		return names;
 
 	}
+
 
 }

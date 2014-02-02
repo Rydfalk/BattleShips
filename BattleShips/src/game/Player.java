@@ -136,12 +136,13 @@ public class Player {
 		int i = 0;
 		for (int y = 0; y < opponentsBoard.boardWidth; y++) {
 			for (int x = 0; x < opponentsBoard.boardWidth; x++) {
-				if (!opponentsBoard.isHit(new Point(x, y))) {
+				if (opponentsBoard.isHit(new Point(x, y))) {
 					i++;
 				}
 			}
 		}
-		if(i++ == 15){
+		if(i == 15){
+			
 			hasWon = true;
 		}
 		

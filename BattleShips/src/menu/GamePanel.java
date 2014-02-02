@@ -17,7 +17,6 @@ import javax.swing.JPanel;
 
 public class GamePanel extends JPanel {
 
-	private Game game;
 	private Board board = new Board();
 	private JPanel gridPanel;
 	private JPanel contentPane;
@@ -126,6 +125,19 @@ public class GamePanel extends JPanel {
 		JButton doneButton = new JButton("Done");
 		doneButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				if(player1.hasWon){
+					EndGamePanel endGamePanel = new EndGamePanel(contentPane, gameObj);
+					
+					contentPane.add(endGamePanel, "End Card");
+					
+					
+					CardLayout cardLayout = (CardLayout) contentPane
+							.getLayout();
+					cardLayout.show(contentPane, "End Card");
+				}
+				
+				
 				// Switch the players around
 				player1 = player2;
 				gameObj.nextActivePlayer();
@@ -133,6 +145,8 @@ public class GamePanel extends JPanel {
 
 				updateBoard(player2, player1);
 				allButtonsEnabled(true);
+				
+				
 			}
 		});
 		doneButton.setBounds(100, 400, 200, 20);

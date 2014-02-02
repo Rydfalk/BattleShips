@@ -24,7 +24,6 @@ class PlayerPanel extends JPanel {
 
 	private JButton backButton;
 	private JButton newHumanButton;
-	private JButton newAIButton;
 	private JButton startGameButton;
 	private JButton removeLastPlayer;
 	private JButton deletePlayer;
@@ -70,7 +69,6 @@ class PlayerPanel extends JPanel {
 					if (numberOfPlayers == 2) {
 
 						newHumanButton.setEnabled(false);
-						newAIButton.setEnabled(false);
 						statusMessagesText.setText("Start Game!");
 
 					}
@@ -87,33 +85,6 @@ class PlayerPanel extends JPanel {
 
 		playerButtonsPanel.add(newHumanButton);
 
-		newAIButton = new JButton("New AI");
-		newAIButton.setEnabled(false); // Not usable until we have AI
-		newAIButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				/*
-				 * TODO: call "addNewAI-method"
-				 */
-
-				game.addNewAIPlayer(inputField.getText().trim());
-				playerDisplay.append(inputField.getText() + "\n");
-				numberOfPlayers++;
-
-				if (numberOfPlayers == 2) {
-
-					newHumanButton.setEnabled(false);
-					newAIButton.setEnabled(false);
-
-				}
-
-				refreshPlayerDisplay();
-
-			}
-		});
-
-		playerButtonsPanel.add(newAIButton);
-
 		removeLastPlayer = new JButton("Remove Player");
 		removeLastPlayer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -122,7 +93,7 @@ class PlayerPanel extends JPanel {
 				numberOfPlayers--;
 				refreshPlayerDisplay();
 				newHumanButton.setEnabled(true);
-//				newAIButton.setEnabled(true);
+
 
 			}
 		});
@@ -137,7 +108,7 @@ class PlayerPanel extends JPanel {
 				numberOfPlayers--;
 				refreshPlayerDisplay();
 				newHumanButton.setEnabled(true);
-//				newAIButton.setEnabled(true);
+
 
 			}
 		});
