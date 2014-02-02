@@ -29,29 +29,26 @@ public class GamePanel extends JPanel {
 	private Player player1;
 	private Player player2;
 	private Game gameObj;
-	
-	//Labels
+
+	// Labels
 	JLabel topMessage;
 	JLabel playersTurnMessage;
-	
-	//To handle ActionListener
+
+	// To handle ActionListener
 	private boolean activeActionListener;
 
 	public GamePanel(JPanel panel, Game gameObject) {
 
 		contentPane = panel;
 		gameObj = gameObject;
-		
 
 		setOpaque(true);
 		setBackground(Color.BLUE.darker().darker());
 		setLayout(null);
-		
+
 		topMessage = new JLabel("Time to make a move");
 		add(topMessage);
-		
-		
-		
+
 		JButton devButton = new JButton("DevButton");
 		devButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -65,12 +62,11 @@ public class GamePanel extends JPanel {
 
 		devButton.setBounds(400, 400, 20, 20);
 		add(devButton);
-		
-		
+
 		player1 = gameObj.getActivePlayer();
 		gameObj.nextActivePlayer();
 		player2 = gameObj.getActivePlayer();
-		
+
 		playersTurnMessage = new JLabel("It's " + player1.getName() + "'s turn");
 		playersTurnMessage.setForeground(Color.WHITE);
 		playersTurnMessage.setBounds(130, 50, 100, 50);
@@ -88,14 +84,14 @@ public class GamePanel extends JPanel {
 						grid[xCoordinate][yCoordinate].getCoordinates())) {
 
 					grid[xCoordinate][yCoordinate].setBackground(Color.RED);
-
+					grid[xCoordinate][yCoordinate].setEnabled(false);
 				}
 				// If the square is missed it should be blue
 				else if (player2.getBoard().isMissed(
 						grid[xCoordinate][yCoordinate].getCoordinates())) {
 
-					grid[xCoordinate][yCoordinate]
-							.setBackground(Color.BLUE);
+					grid[xCoordinate][yCoordinate].setBackground(Color.BLUE);
+					grid[xCoordinate][yCoordinate].setEnabled(false);
 
 				}
 				// if the square is nether hit nor missed we add a
@@ -108,14 +104,13 @@ public class GamePanel extends JPanel {
 										yCoordinate);
 
 								public void actionPerformed(ActionEvent e) {
-									System.out.println("HAIS");
-									//Register the move and change the status
-									//of the klicked square
+									// Register the move and change the status
+									// of the klicked square
 									player1.makeMove(player2, coordinate);
-									
+
 									allButtonsEnabled(false);
 									updateBoard(player2, player1);
-									
+
 								}
 							});
 				}
@@ -125,57 +120,56 @@ public class GamePanel extends JPanel {
 			}
 		}
 
-		
 		gridPanel.setBounds(130, 150, 250, 250);
 		add(gridPanel);
-		
-		
+
 		JButton doneButton = new JButton("Done");
 		doneButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("HAI");
-				//Switch the players around
+				// Switch the players around
 				player1 = player2;
 				gameObj.nextActivePlayer();
 				player2 = gameObj.getActivePlayer();
-				
+
 				updateBoard(player2, player1);
 				allButtonsEnabled(true);
 			}
 		});
 		doneButton.setBounds(100, 400, 200, 20);
-		
+
 		add(doneButton);
 
-
 	}
-	
-	private void updateBoard(Player player1, Player player2){
+
+	private void updateBoard(Player player1, Player player2) {
 
 		Board activeBoard = player1.getBoard();
-	
+
 		for (int y = 0; y < width; y++) {
 			for (int x = 0; x < width; x++) {
 				if (activeBoard.isHit(new Point(x, y))) {
 					grid[x][y].setBackground(Color.RED);
-				} else if(activeBoard.isMissed(new Point(x, y))){
+				} else if (activeBoard.isMissed(new Point(x, y))) {
 					grid[x][y].setBackground(Color.BLUE);
-				}
-				else {
+				} else {
 					grid[x][y].setBackground(null);
 				}
 			}
 		}
 	}
-    
-	
-	private void allButtonsEnabled(boolean b){
+
+	private void allButtonsEnabled(boolean b) {
 		for (int y = 0; y < width; y++) {
 			for (int x = 0; x < width; x++) {
+				if (board.isHit(
+						grid[x][y].getCoordinates())) {
+
+					grid[x][y].setBackground(Color.RED);
+					grid[x][y].setEnabled(false);
+				}
 				grid[x][y].setEnabled(b);
 			}
 		}
 	}
-    
-}
 
+}
