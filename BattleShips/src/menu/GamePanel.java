@@ -159,15 +159,16 @@ public class GamePanel extends JPanel {
 	}
 
 	private void allButtonsEnabled(boolean b) {
+		Board activeBoard = player2.getBoard();
 		for (int y = 0; y < width; y++) {
 			for (int x = 0; x < width; x++) {
-				if (board.isHit(
-						grid[x][y].getCoordinates())) {
-
-					grid[x][y].setBackground(Color.RED);
+				if (!activeBoard.isHit(new Point(x, y))
+						&& !activeBoard.isMissed(new Point(x, y))) {
+					grid[x][y].setEnabled(b);
+				} else {
 					grid[x][y].setEnabled(false);
 				}
-				grid[x][y].setEnabled(b);
+
 			}
 		}
 	}
