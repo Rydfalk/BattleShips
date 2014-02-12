@@ -22,74 +22,91 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
+
+/**
+ * 
+ * The panel used for setting up your board in the Battleship game.
+ * 
+ * 
+ * A lot of global variables due to the need of buttons with specific uses.
+ * A possible solution would be a button handling class and calling that.
+ * Or tough, that would still be problematic.
+ * 
+ * 
+ * 
+ *
+ */
+
 class SetUpPanel extends JPanel {
 
-	private Game game;
-
-	private Player activePlayer;
-
-	private GamePanel gamePanel;
-
-	private JPanel contentPane;
+	private Game game; 
+	private Player activePlayer; 
+	private GamePanel gamePanel; 
+	private JPanel contentPane; 
 
 	/*
 	 * Grid related variables
 	 */
-	private JPanel gridPanel;
-	private SetupGridButton[][] grid;
-	private int yCoordinate;
-	private int xCoordinate;
-	private int width = 7;
+	private SetupGridButton[][] grid; 
+	private int yCoordinate; 
+	private int xCoordinate; 
+	private int width = 7; 
 
 	/*
 	 * Variables for the button panels
 	 */
-	private JPanel buttonPanel;
-	private JPanel shipButtonPane;
-	private JPanel doneButtonPane;
-	private JPanel directionButtonPane;
-	private JButton verticalButton;
-	private JButton horizontalButton;
-	private JButton[] shipButtons;
-	private JButton doneButton;
+	
+	private JButton verticalButton; 
+	private JButton horizontalButton; 
+	private JButton[] shipButtons; 
+	private JButton doneButton; 
 
 	/*
 	 * Labels to tell messages
 	 */
 
-	private JLabel statusMessages;
-	private JLabel activePlayerLabel;
+	private JLabel statusMessages;  
+	private JLabel activePlayerLabel; 
 
 	/*
 	 * Variables for the ship placement logic
 	 */
-	Board activeBoard;
-	private List<Ship> shipList;
-	private int shipSize;
-	private int shipIndex;
+	private Board activeBoard; 
+	private List<Ship> shipList; 
+	
+	private int shipIndex; 
 
-	private JButton activeDirectionButton;
-	private JButton activeShipButton;
-	private JButton nullPointerButton;
+	private JButton activeDirectionButton; 
+	private JButton activeShipButton; 
 
-	private Point activeButtonCoordinate;
-	private Direction activeDirection;
-	private Ship activeShip;
+	private Point activeButtonCoordinate; 
+	private Direction activeDirection; 
+	private Ship activeShip; 
 
-	private boolean player1Done = false;
-	private boolean player2Done = false;
+	private boolean player1Done = false; 
 
-	private boolean coordinateButtonPressed = false;
-	private boolean directionButtonPressed = false;
-	private boolean shipButtonPressed = false;
+	private boolean coordinateButtonPressed = false; 
+	private boolean directionButtonPressed = false; 
+	private boolean shipButtonPressed = false; 
 
 	public SetUpPanel(JPanel panel, Game gameObject) {
-
 		contentPane = panel;
 
 		game = gameObject;
 
-		nullPointerButton = new JButton();
+		initUI();
+
+	}
+
+	private void initUI() {
+		
+		JPanel gridPanel;
+		JPanel buttonPanel;
+		JPanel shipButtonPane;
+		JPanel doneButtonPane;
+		JPanel directionButtonPane;
+		
+		JButton nullPointerButton = new JButton();
 		activeDirectionButton = nullPointerButton;
 		activeShipButton = nullPointerButton;
 
@@ -105,6 +122,7 @@ class SetUpPanel extends JPanel {
 		 */
 
 		gridPanel = new JPanel(new GridLayout(width, width));
+
 		grid = new SetupGridButton[width][width];
 		for (yCoordinate = 0; yCoordinate < width; yCoordinate++) {
 			for (xCoordinate = 0; xCoordinate < width; xCoordinate++) {
@@ -167,7 +185,8 @@ class SetUpPanel extends JPanel {
 		verticalButton.setOpaque(true);
 		verticalButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				activeDirectionButton.setBackground(UIManager.getColor("Button.background"));
+				activeDirectionButton.setBackground(UIManager
+						.getColor("Button.background"));
 
 				activeDirection = Direction.UP;
 				directionButtonPressed = true;
@@ -185,7 +204,8 @@ class SetUpPanel extends JPanel {
 		horizontalButton.setOpaque(true);
 		horizontalButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				activeDirectionButton.setBackground(UIManager.getColor("Button.background"));
+				activeDirectionButton.setBackground(UIManager
+						.getColor("Button.background"));
 				activeDirection = Direction.RIGHT;
 				directionButtonPressed = true;
 				activeDirectionButton = horizontalButton;
@@ -205,10 +225,14 @@ class SetUpPanel extends JPanel {
 
 		shipList = new ArrayList<Ship>();
 		shipButtons = new JButton[5];
+
 		
-		//For each ship we want, in this case 5
+		
+		int shipSize; //To keep track of the current shipSize
+		
+		// For each ship we want, in this case 5
 		for (shipIndex = 0; shipIndex < 5; shipIndex++) {
-			
+
 			shipSize = shipIndex + 1;
 			shipList.add(new Ship(shipSize));
 			shipButtons[shipIndex] = new JButton(shipSize + " Ship");
@@ -219,8 +243,9 @@ class SetUpPanel extends JPanel {
 				private int index = shipIndex;
 
 				public void actionPerformed(ActionEvent e) {
-					activeShipButton.setBackground(UIManager.getColor("Button.background"));
-					
+					activeShipButton.setBackground(UIManager
+							.getColor("Button.background"));
+
 					activeShip = buttonSpecificShip;
 					shipButtonPressed = true;
 
@@ -232,8 +257,6 @@ class SetUpPanel extends JPanel {
 
 		}
 
-
-		
 		for (JButton button : shipButtons) {
 			shipButtonPane.add(button);
 		}
@@ -268,7 +291,6 @@ class SetUpPanel extends JPanel {
 								.getLayout();
 						cardLayout.show(contentPane, "Game Card");
 
-
 					}
 
 				}
@@ -288,50 +310,55 @@ class SetUpPanel extends JPanel {
 		 * 
 		 * Removed when completed project
 		 */
+		/*
 		JButton devButton = new JButton("DevButton");
 		devButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				Player player1 = game.getActivePlayer();
 				game.nextActivePlayer();
 				Player player2 = game.getActivePlayer();
 				game.nextActivePlayer();
-				
-				if(!(player1.setShip(new Ship(1), new Point(0,1), Direction.RIGHT) ||
-				player1.setShip(new Ship(1), new Point(0,3), Direction.RIGHT)||
-				player1.setShip(new Ship(1), new Point(2,1), Direction.RIGHT)||
-				player1.setShip(new Ship(1), new Point(2,3), Direction.RIGHT)||
-				player1.setShip(new Ship(1), new Point(4,3), Direction.RIGHT))){
+
+				if (!(player1.setShip(new Ship(1), new Point(0, 1),
+						Direction.RIGHT)
+						|| player1.setShip(new Ship(1), new Point(0, 3),
+								Direction.RIGHT)
+						|| player1.setShip(new Ship(1), new Point(2, 1),
+								Direction.RIGHT)
+						|| player1.setShip(new Ship(1), new Point(2, 3),
+								Direction.RIGHT) || player1.setShip(
+						new Ship(1), new Point(4, 3), Direction.RIGHT))) {
 					System.out.println("Nepp1");
 				}
-				
-				if(!(player2.setShip(new Ship(1), new Point(0,1), Direction.RIGHT) ||
-				player2.setShip(new Ship(1), new Point(0,3), Direction.RIGHT)||
-				player2.setShip(new Ship(1), new Point(2,1), Direction.RIGHT)||
-				player2.setShip(new Ship(1), new Point(2,3), Direction.RIGHT)||
-				player2.setShip(new Ship(1), new Point(4,3), Direction.RIGHT))){
+
+				if (!(player2.setShip(new Ship(1), new Point(0, 1),
+						Direction.RIGHT)
+						|| player2.setShip(new Ship(1), new Point(0, 3),
+								Direction.RIGHT)
+						|| player2.setShip(new Ship(1), new Point(2, 1),
+								Direction.RIGHT)
+						|| player2.setShip(new Ship(1), new Point(2, 3),
+								Direction.RIGHT) || player2.setShip(
+						new Ship(1), new Point(4, 3), Direction.RIGHT))) {
 					System.out.println("Nepp2");
 				}
-				
-				//TABORT
-				CardLayout cardLayout = (CardLayout) contentPane
-						.getLayout();
+
+				// TABORT
+				CardLayout cardLayout = (CardLayout) contentPane.getLayout();
 				cardLayout.show(contentPane, "Game Card");
-				gamePanel = new GamePanel(contentPane,game);
+				gamePanel = new GamePanel(contentPane, game);
 				contentPane.add(gamePanel, "Game Card");
-				
-				
+
 				cardLayout = (CardLayout) contentPane.getLayout();
 				cardLayout.next(contentPane);
 
-				
-				
 			}
 		});
 
 		devButton.setBounds(400, 400, 20, 20);
 		add(devButton);
-
+		*/
 	}
 
 	/**
@@ -393,10 +420,9 @@ class SetUpPanel extends JPanel {
 		}
 	}
 
-	
 	/**
-	 * Sets all buttons that you may not put a ship in to false
-	 * so you can't press them.
+	 * Sets all buttons that you may not put a ship in to false so you can't
+	 * press them.
 	 */
 	private void disableGridButtons() {
 

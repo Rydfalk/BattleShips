@@ -1,24 +1,11 @@
 package game;
 
-import java.awt.Color;
-import java.awt.GridLayout;
 import java.awt.Point;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JPanel;
 
 public class Board {
 
 	protected int boardWidth;
 	private Square[][] board;
-	
-	private Ship[] placedShips;
-	private Ship[] destroyedShips;
-	
-	private JPanel gridPanel;
-	private JButton[][] grid;
 
 	/**
 	 * Constructors
@@ -183,8 +170,8 @@ public class Board {
 	public boolean isHit(Point point) {
 		return (board[point.y][point.x] == Square.HIT);
 	}
-	
-	public boolean isMissed(Point point){
+
+	public boolean isMissed(Point point) {
 		return (board[point.y][point.x] == Square.MISSED);
 	}
 
@@ -197,16 +184,15 @@ public class Board {
 	public void hitSquare(Point point) {
 		board[point.y][point.x] = Square.HIT;
 	}
-	
+
 	/**
 	 * Sets the given coordinates to missed
 	 * 
 	 * @param point
 	 */
-	public void missSquare(Point point){
+	public void missSquare(Point point) {
 		board[point.y][point.x] = Square.MISSED;
 	}
-	
 
 	/******************* GETTERS AND SETTERS *******************/
 	public int getBoardWidth() {
@@ -214,4 +200,3 @@ public class Board {
 	}
 
 }
-

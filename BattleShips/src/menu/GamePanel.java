@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 
 public class GamePanel extends JPanel {
 
-	private Board board = new Board();
+	// private Board board = new Board();
 	private JPanel gridPanel;
 	private JPanel contentPane;
 	private SetupGridButton[][] grid;
@@ -33,9 +33,6 @@ public class GamePanel extends JPanel {
 	JLabel topMessage;
 	JLabel playersTurnMessage;
 
-	// To handle ActionListener
-	private boolean activeActionListener;
-
 	public GamePanel(JPanel panel, Game gameObject) {
 
 		contentPane = panel;
@@ -48,20 +45,24 @@ public class GamePanel extends JPanel {
 		topMessage = new JLabel("Time to make a move");
 		add(topMessage);
 
-		JButton devButton = new JButton("DevButton");
-		devButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				CardLayout cardLayout = (CardLayout) contentPane.getLayout();
-				cardLayout.next(contentPane);
-				;
-
-			}
-		});
-
-		devButton.setBounds(400, 400, 20, 20);
-		add(devButton);
-
+		/*
+		 * Used for debugging
+		 * 
+		 * 
+		 * 
+		 * JButton devButton = new JButton("DevButton");
+		 * devButton.addActionListener(new ActionListener() { public void
+		 * actionPerformed(ActionEvent e) {
+		 * 
+		 * CardLayout cardLayout = (CardLayout) contentPane.getLayout();
+		 * cardLayout.next(contentPane); ;
+		 * 
+		 * } });
+		 * 
+		 * devButton.setBounds(400, 400, 20, 20); add(devButton);
+		 */
+		
+		
 		player1 = gameObj.getActivePlayer();
 		gameObj.nextActivePlayer();
 		player2 = gameObj.getActivePlayer();
@@ -125,19 +126,18 @@ public class GamePanel extends JPanel {
 		JButton doneButton = new JButton("Done");
 		doneButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				if(player1.hasWon){
-					EndGamePanel endGamePanel = new EndGamePanel(contentPane, gameObj);
-					
+
+				if (player1.hasWon) {
+					EndGamePanel endGamePanel = new EndGamePanel(contentPane,
+							gameObj);
+
 					contentPane.add(endGamePanel, "End Card");
-					
-					
+
 					CardLayout cardLayout = (CardLayout) contentPane
 							.getLayout();
 					cardLayout.show(contentPane, "End Card");
 				}
-				
-				
+
 				// Switch the players around
 				player1 = player2;
 				gameObj.nextActivePlayer();
@@ -145,8 +145,7 @@ public class GamePanel extends JPanel {
 
 				updateBoard(player2, player1);
 				allButtonsEnabled(true);
-				
-				
+
 			}
 		});
 		doneButton.setBounds(100, 400, 200, 20);
