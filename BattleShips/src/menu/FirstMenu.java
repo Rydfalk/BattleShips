@@ -50,17 +50,17 @@ class FirstMenu extends JPanel {
 		});
 		add(gameButton);
 		
-		devButton = new JButton("DevButton");
-		devButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				
-				CardLayout cardLayout = (CardLayout) contentPane.getLayout();
-				cardLayout.next(contentPane);
-				
-			}
-		});
-		add(devButton);
+//		devButton = new JButton("DevButton");
+//		devButton.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				
+//				
+//				CardLayout cardLayout = (CardLayout) contentPane.getLayout();
+//				cardLayout.next(contentPane);
+//				
+//			}
+//		});
+//		add(devButton);
 		
 	}
 	

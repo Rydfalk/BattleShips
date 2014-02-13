@@ -170,17 +170,17 @@ class PlayerPanel extends JPanel {
 		});
 		gameButtonsPanel.add(startGameButton);
 
-		JButton devButton = new JButton("DevButton");
-		devButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				CardLayout cardLayout = (CardLayout) contentPane.getLayout();
-				cardLayout.next(contentPane);
-				;
-
-			}
-		});
-		gameButtonsPanel.add(devButton);
+//		JButton devButton = new JButton("DevButton");
+//		devButton.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//
+//				CardLayout cardLayout = (CardLayout) contentPane.getLayout();
+//				cardLayout.next(contentPane);
+//				;
+//
+//			}
+//		});
+//		gameButtonsPanel.add(devButton);
 
 		add(playerButtonsPanel);
 		add(textFieldPanel);
